@@ -1,0 +1,160 @@
+import { Attraction } from '@/components/AttractionGallery';
+
+export const attractions: Attraction[] = [
+  {
+    id: 'kurashiki-bikan',
+    name: '倉敷美觀地區',
+    description: '擁有江戶風格的白壁土藏建築群,是日本最具代表性的歷史街道之一。倉敷川兩岸的柳樹與古建築交織出絕美的日夜景色。',
+    images: [
+      '/images/updated_attractions/kurashiki/1.jpg',
+      '/images/updated_attractions/kurashiki/2.jpg',
+      '/images/updated_attractions/kurashiki/3.jpg',
+      '/images/updated_attractions/kurashiki/4.jpg',
+      '/images/updated_attractions/kurashiki/5.jpg',
+    ],
+    highlights: [
+      '白壁土藏群 - 保存完好的江戶時期建築',
+      '倉敷川夜景 - 燈光倒映在河面上的美景',
+      '大原美術館 - 收藏日本及西方美術作品',
+      '古街商店街 - 傳統工藝品和特色小店',
+      '高砂橋 - 經典拍照地點',
+      '阿智神社 - 俯瞰美觀地區的最佳位置',
+    ],
+  },
+  {
+    id: 'okayama-korakuen',
+    name: '岡山後樂園',
+    description: '日本三大名園之一,獲得米其林三星評價。這座迴遊式大名庭園展現了江戶時代的風采,與岡山城交相輝映。',
+    images: [
+      '/images/attractions/korakuen-4.webp',
+      '/images/attractions/korakuen-5.jpg',
+      '/images/attractions/korakuen-6.jpg',
+      '/images/attractions/korakuen-7.jpg',
+    ],
+    highlights: [
+      '唯心山 - 俯瞰整個庭園的最佳視角',
+      '延養亭 - 藩主曾居住的建築',
+      '澤之池 - 庭園中心的巨大水池',
+      '借景建築 - 巧妙將岡山城納入景觀',
+    ],
+  },
+  {
+    id: 'onomichi-cat-alley',
+    name: '尾道貓之細道',
+    description: '隱藏在尾道老街的迷你小巷,因聚集了許多貓咪而聞名。是貓奴和攝影愛好者的朝聖地。',
+    images: [
+      '/images/onomichi-cat-alley-1.webp',
+      '/images/onomichi-cat-alley-2.jpg',
+      '/images/onomichi-cat-alley-1.webp',
+      '/images/onomichi-cat-alley-2.jpg',
+    ],
+    highlights: [
+      '貓咪聚集地 - 每年吸引60萬名遊客',
+      '狹窄石板路 - 充滿日本懷舊風情',
+      '貓咪藝術牆 - 可愛的貓咪主題壁畫',
+      '傳統民居 - 保存完好的江戶時期建築',
+      '貓主題咖啡館 - 邊喝咖啡邊與貓互動',
+    ],
+  },
+  {
+    id: 'senkoji-temple',
+    name: '千光寺',
+    description: '位於尾道山頂的古老寺廟,可搭乘纜車登頂。從這裡可俯瞰整個尾道市區和瀨戶內海的壯麗全景,是尾道最具代表性的地標。',
+    images: [
+      '/images/updated_attractions/senkoji/1.jpg',
+      '/images/updated_attractions/senkoji/2.jpg',
+      '/images/updated_attractions/senkoji/3.jpg',
+    ],
+    highlights: [
+      '千光寺纜車 - 欣賞沿途山海美景',
+      '本堂絕景 - 俯瞰尾道水道與島嶼',
+      '文學小徑 - 漫步於充滿詩意的山間小路',
+      '千光寺本堂 - 歷史悠久的朱紅建築',
+    ],
+  },
+  {
+    id: 'kankakei-gorge',
+    name: '寒霞溪',
+    description: '日本三大溪谷美之一,位於小豆島。以奇岩怪石與四季分明的自然景觀聞名,特別是秋天的紅葉極為壯觀。',
+    images: [
+      '/images/attractions/kankakei-1.jpg',
+      '/images/attractions/kankakei-2.jpg',
+      '/images/attractions/kankakei-3.jpg',
+      '/images/attractions/kankakei-5.jpg',
+    ],
+    highlights: [
+      '寒霞溪纜車 - 穿梭於奇岩紅葉之間',
+      '四望頂 - 眺望瀨戶內海的絕佳地點',
+      '奇岩怪石 - 歷經千萬年風化的自然傑作',
+      '紅葉名所 - 日本著名的賞楓勝地',
+    ],
+  },
+  {
+    id: 'ritsurin-garden',
+    name: '栗林公園',
+    description: '日本三大名園之一,擁有超過400年歷史的大名庭園。四季景色各異,春天杜鵑花盛開尤為壯觀。',
+    images: [
+      '/images/ritsurin-main.webp',
+      '/images/ritsurin-1.jpg',
+      '/images/ritsurin-2.jpg',
+      '/images/ritsurin-3.jpg',
+      '/images/ritsurin-4.jpg',
+    ],
+    highlights: [
+      '掬月亭 - 品嚐抹茶賞庭園美景',
+      '飛來峰 - 公園最高點俯瞰全景',
+      '杜鵑花季 - 3-4月花海盛開',
+      '池泉迴遊式庭園 - 經典日式造園藝術',
+    ],
+  },
+  {
+    id: 'ogijima-island',
+    name: '男木島 (貓島)',
+    description: '瀨戶內海著名的「貓島」,島上隨處可見悠閒生活的貓咪。除了可愛的貓咪,這裡還有豐富的現代藝術裝置與迷宮般的石階漁村風情。',
+    images: [
+      '/images/updated_attractions/ogijima/1.jpg',
+      '/images/updated_attractions/ogijima/2.jpg',
+      '/images/updated_attractions/ogijima/3.jpg',
+      '/images/updated_attractions/ogijima/5.jpg',
+    ],
+    highlights: [
+      '貓咪天堂 - 與島上悠閒的貓咪近距離接觸',
+      '男木島燈塔 - 白色燈塔與藍天海景',
+      '石牆迷宮 - 充滿探索樂趣的傳統小巷',
+      '藝術裝置 - 瀨戶內國際藝術祭的精彩作品',
+    ],
+  },
+  {
+    id: 'okayama-castle',
+    name: '岡山城',
+    description: '因其黑色外牆而被稱為「烏城」,與鄰近的後樂園共同構成岡山的代表性景觀。夜間點燈後更顯壯麗。',
+    images: [
+      '/images/okayama-1.webp',
+      '/images/okayama-2.jpg',
+      '/images/okayama-3.jpg',
+    ],
+    highlights: [
+      '烏城 - 獨特的黑色天守閣',
+      '天守閣展望台 - 俯瞰岡山市區',
+      '夜間點燈 - 夢幻的燈光秀',
+      '月見橋 - 拍攝城堡的最佳角度',
+    ],
+  },
+  {
+    id: 'tomonoura-port',
+    name: '鞆之浦港町',
+    description: '位於廣島的古老港町,保留了江戶時期的風貌。寧靜的港灣和傳統建築營造出時光停駐的感覺。',
+    images: [
+      '/images/tomonoura-1.webp',
+      '/images/tomonoura-2.jpg',
+      '/images/tomonoura-1.webp',
+      '/images/tomonoura-2.jpg',
+    ],
+    highlights: [
+      '常夜燈 - 日本現存最古老的燈塔',
+      '港區老街 - 江戶時期的建築保存完好',
+      '對潮樓 - 歷史悠久的旅館',
+      '傳統漁港 - 感受日本漁村文化',
+    ],
+  },
+];

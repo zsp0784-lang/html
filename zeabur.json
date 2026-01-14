@@ -1,0 +1,8 @@
+{
+  "build": {
+    "command": "pnpm run build && cp ferry_data.json dist/"
+  },
+  "start": {
+    "command": "pnpm run start"
+  }
+}

@@ -1,0 +1,24 @@
+# 依賴
+node_modules/
+dist/
+.pnpm-store/
+
+# 環境變數
+.env
+.env.local
+.env.*.local
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# 日誌
+*.log
+npm-debug.log*
+pnpm-debug.log*
