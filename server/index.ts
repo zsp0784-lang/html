@@ -12,7 +12,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));  
 // 靜態文件 - 使用絕對路徑確保在生產環境中正確  
 const staticPath = process.env.NODE_ENV === 'production'   
-  ? '/src/dist/public'   
+  ? path.join(__dirname, '..', 'dist', 'public')   
   : path.join(__dirname, '..', 'client', 'public');  
 app.use(express.static(staticPath));  
 // API 路由  
