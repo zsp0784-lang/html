@@ -298,21 +298,21 @@ export const walkingRoutes: WalkingRoute[] = [
     name: '倉敷美觀地區夜間散步',
     description: '探索倉敷的歷史街道和傳統建築',
     locations: ['GRAND BASE', '高砂橋', 'Ivy Square', '本町通', '大原本邸', '阿智神社'],
-    routeImage: '/images/routes/kurashiki_route.webp',
+    routeImage: '/images/routes/kurashiki_route.png',
     googleMapsUrl: 'https://maps.app.goo.gl/45bGTQ4xx169rBhh9'
   },
   {
     name: '鞆之浦快閃遊覽',
     description: '發現港邊小鎮的魅力',
     locations: ['停車場', '常夜燈', '港區老街', '對潮樓'],
-    routeImage: '/images/routes/tomonoura_route.webp',
+    routeImage: '/images/routes/tomonoura_route.png',
     googleMapsUrl: 'https://maps.app.goo.gl/WzT4GG4jsYb7tGiE8'
   },
   {
     name: '貓之細道',
     description: '尋找貓咪的隱藏小巷',
     locations: ['纜車山頂站', '千光寺', '貓之細道', '艮神社', '纜車山麓站'],
-    routeImage: '/images/routes/onomichi_route.webp',
+    routeImage: '/images/routes/onomichi_route.png',
     googleMapsUrl: 'https://maps.app.goo.gl/Bxi6E9iQyUxn48EVA'
   },
 ];
