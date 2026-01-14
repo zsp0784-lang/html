@@ -46,9 +46,7 @@ app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ extended: true, limit: '10mb' }));
 
 // ============ 靜態文件 ============
-const staticPath = process.env.NODE_ENV === 'production'
-  ? path.join(__dirname, '..', 'public')
-  : path.join(__dirname, '..', 'client', 'public');
+const staticPath = path.join(__dirname, 'public');
 
 console.log(`📁 Static files path: ${staticPath}`);
 app.use(express.static(staticPath));
