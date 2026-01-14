@@ -1,3 +1,4 @@
+Dockerfile
 import { Attraction } from '@/components/AttractionGallery';
 
 export const attractions: Attraction[] = [
@@ -6,11 +7,11 @@ export const attractions: Attraction[] = [
     name: '倉敷美觀地區',
     description: '擁有江戶風格的白壁土藏建築群,是日本最具代表性的歷史街道之一。倉敷川兩岸的柳樹與古建築交織出絕美的日夜景色。',
     images: [
-      '/images/updated_attractions/kurashiki/1.jpg',
-      '/images/updated_attractions/kurashiki/2.jpg',
-      '/images/updated_attractions/kurashiki/3.jpg',
-      '/images/updated_attractions/kurashiki/4.jpg',
-      '/images/updated_attractions/kurashiki/5.jpg',
+      '/images/attractions/kurashiki/1.webp',
+      '/images/attractions/kurashiki/2.webp',
+      '/images/attractions/kurashiki/3.webp',
+      '/images/attractions/kurashiki/4.webp',
+      '/images/attractions/kurashiki/5.webp',
     ],
     highlights: [
       '白壁土藏群 - 保存完好的江戶時期建築',
@@ -27,9 +28,9 @@ export const attractions: Attraction[] = [
     description: '日本三大名園之一,獲得米其林三星評價。這座迴遊式大名庭園展現了江戶時代的風采,與岡山城交相輝映。',
     images: [
       '/images/attractions/korakuen-4.webp',
-      '/images/attractions/korakuen-5.jpg',
-      '/images/attractions/korakuen-6.jpg',
-      '/images/attractions/korakuen-7.jpg',
+      '/images/attractions/korakuen-5.webp',
+      '/images/attractions/korakuen-6.webp',
+      '/images/attractions/korakuen-7.webp',
     ],
     highlights: [
       '唯心山 - 俯瞰整個庭園的最佳視角',
@@ -43,10 +44,10 @@ export const attractions: Attraction[] = [
     name: '尾道貓之細道',
     description: '隱藏在尾道老街的迷你小巷,因聚集了許多貓咪而聞名。是貓奴和攝影愛好者的朝聖地。',
     images: [
-      '/images/onomichi-cat-alley-1.webp',
-      '/images/onomichi-cat-alley-2.jpg',
-      '/images/onomichi-cat-alley-1.webp',
-      '/images/onomichi-cat-alley-2.jpg',
+      '/images/attractions/onomichi-cat-alley-1.webp',
+      '/images/attractions/onomichi-cat-alley-2.webp',
+      '/images/attractions/onomichi-cat-alley-1.webp',
+      '/images/attractions/onomichi-cat-alley-2.webp',
     ],
     highlights: [
       '貓咪聚集地 - 每年吸引60萬名遊客',
@@ -61,9 +62,9 @@ export const attractions: Attraction[] = [
     name: '千光寺',
     description: '位於尾道山頂的古老寺廟,可搭乘纜車登頂。從這裡可俯瞰整個尾道市區和瀨戶內海的壯麗全景,是尾道最具代表性的地標。',
     images: [
-      '/images/updated_attractions/senkoji/1.jpg',
-      '/images/updated_attractions/senkoji/2.jpg',
-      '/images/updated_attractions/senkoji/3.jpg',
+      '/images/attractions/senkoji/1.webp',
+      '/images/attractions/senkoji/2.webp',
+      '/images/attractions/senkoji/3.webp',
     ],
     highlights: [
       '千光寺纜車 - 欣賞沿途山海美景',
@@ -77,10 +78,10 @@ export const attractions: Attraction[] = [
     name: '寒霞溪',
     description: '日本三大溪谷美之一,位於小豆島。以奇岩怪石與四季分明的自然景觀聞名,特別是秋天的紅葉極為壯觀。',
     images: [
-      '/images/attractions/kankakei-1.jpg',
-      '/images/attractions/kankakei-2.jpg',
-      '/images/attractions/kankakei-3.jpg',
-      '/images/attractions/kankakei-5.jpg',
+      '/images/attractions/kankakei-1.webp',
+      '/images/attractions/kankakei-2.webp',
+      '/images/attractions/kankakei-3.webp',
+      '/images/attractions/kankakei-5.webp',
     ],
     highlights: [
       '寒霞溪纜車 - 穿梭於奇岩紅葉之間',
@@ -94,11 +95,11 @@ export const attractions: Attraction[] = [
     name: '栗林公園',
     description: '日本三大名園之一,擁有超過400年歷史的大名庭園。四季景色各異,春天杜鵑花盛開尤為壯觀。',
     images: [
-      '/images/ritsurin-main.webp',
-      '/images/ritsurin-1.jpg',
-      '/images/ritsurin-2.jpg',
-      '/images/ritsurin-3.jpg',
-      '/images/ritsurin-4.jpg',
+      '/images/attractions/ritsurin-main.webp',
+      '/images/attractions/ritsurin-1.webp',
+      '/images/attractions/ritsurin-2.webp',
+      '/images/attractions/ritsurin-3.webp',
+      '/images/attractions/ritsurin-4.webp',
     ],
     highlights: [
       '掬月亭 - 品嚐抹茶賞庭園美景',
@@ -112,10 +113,10 @@ export const attractions: Attraction[] = [
     name: '男木島 (貓島)',
     description: '瀨戶內海著名的「貓島」,島上隨處可見悠閒生活的貓咪。除了可愛的貓咪,這裡還有豐富的現代藝術裝置與迷宮般的石階漁村風情。',
     images: [
-      '/images/updated_attractions/ogijima/1.jpg',
-      '/images/updated_attractions/ogijima/2.jpg',
-      '/images/updated_attractions/ogijima/3.jpg',
-      '/images/updated_attractions/ogijima/5.jpg',
+      '/images/attractions/ogijima/1.webp',
+      '/images/attractions/ogijima/2.webp',
+      '/images/attractions/ogijima/3.webp',
+      '/images/attractions/ogijima/5.webp',
     ],
     highlights: [
       '貓咪天堂 - 與島上悠閒的貓咪近距離接觸',
@@ -129,9 +130,9 @@ export const attractions: Attraction[] = [
     name: '岡山城',
     description: '因其黑色外牆而被稱為「烏城」,與鄰近的後樂園共同構成岡山的代表性景觀。夜間點燈後更顯壯麗。',
     images: [
-      '/images/okayama-1.webp',
-      '/images/okayama-2.jpg',
-      '/images/okayama-3.jpg',
+      '/images/attractions/okayama-1.webp',
+      '/images/attractions/okayama-2.webp',
+      '/images/attractions/okayama-3.webp',
     ],
     highlights: [
       '烏城 - 獨特的黑色天守閣',
@@ -145,10 +146,10 @@ export const attractions: Attraction[] = [
     name: '鞆之浦港町',
     description: '位於廣島的古老港町,保留了江戶時期的風貌。寧靜的港灣和傳統建築營造出時光停駐的感覺。',
     images: [
-      '/images/tomonoura-1.webp',
-      '/images/tomonoura-2.jpg',
-      '/images/tomonoura-1.webp',
-      '/images/tomonoura-2.jpg',
+      '/images/attractions/tomonoura-1.webp',
+      '/images/attractions/tomonoura-2.webp',
+      '/images/attractions/tomonoura-1.webp',
+      '/images/attractions/tomonoura-2.webp',
     ],
     highlights: [
       '常夜燈 - 日本現存最古老的燈塔',
