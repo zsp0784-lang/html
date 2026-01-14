@@ -14,10 +14,7 @@ const SCRAPE_PASSWORD = process.env.PASSWORD || 'default-password';
 
 // ============ 路徑管理 ============
 function getDataPath(): string {
-  if (process.env.NODE_ENV === 'production') {
-    return path.join(process.cwd(), 'ferry_data.json');
-  }
-  return path.resolve(__dirname, '..', 'ferry_data.json');
+  return path.join(__dirname, 'ferry_data.json');
 }
 
 // ============ 數據驗證 ============
