@@ -15,11 +15,11 @@ import Money from './Money';
 import Traffic from './Traffic';
 
 const images = [
-  '/images/hero-banner.png',
-  '/images/kurashiki-night-1.webp',
-  '/images/onomichi-cat-alley-1.webp',
-  '/images/ritsurin-main.webp',
-  '/images/angel-road-main.jpg',
+  '/images/ui/hero-banner.png',
+  '/images/attractions/kurashiki-night-1.webp',
+  '/images/attractions/onomichi-cat-alley-1.webp',
+  '/images/attractions/ritsurin-main.webp',
+  '/images/attractions/angel-road-main.webp',
 ];
 
 export default function Home() {
@@ -81,7 +81,7 @@ export default function Home() {
         <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-background" />
         <div className="absolute inset-0 flex flex-col items-center justify-center">
           <div className="flex items-center justify-center mb-4">
-            <img loading="lazy" src="/images/original-style-title.png" alt="山陽&晴天之國" width={400} height={192} className="h-40 md:h-48 drop-shadow-lg" />
+            <img loading="lazy" src="/images/ui/original-style-title.png" alt="山陽&晴天之國" width={400} height={192} className="h-40 md:h-48 drop-shadow-lg" />
           </div>
         </div>
       </div>
