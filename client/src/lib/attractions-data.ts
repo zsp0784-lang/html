@@ -1,4 +1,3 @@
-Dockerfile
 import { Attraction } from '@/components/AttractionGallery';
 
 export const attractions: Attraction[] = [
