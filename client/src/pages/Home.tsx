@@ -97,7 +97,7 @@ export default function Home() {
                 className={`flex items-center justify-center gap-1.5 md:gap-2 px-4 md:px-6 py-2.5 md:py-3 rounded-full md:rounded-lg font-semibold transition-all duration-300 text-sm md:text-base whitespace-nowrap ${
                   activeTab === id
                     ? 'bg-accent text-accent-foreground shadow-md'
-                    : 'text-foreground/70 hover:text-foreground hover:bg-secondary/50 border border-border/30'
+                    : 'text-foreground/70 hover:text-foreground hover:bg-secondary/50 border-2 border-accent/40'  
                 }`}
               >
                 <Icon className="h-4 w-4 md:h-5 md:w-5" />
