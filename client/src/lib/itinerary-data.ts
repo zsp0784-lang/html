@@ -35,6 +35,7 @@ export const itineraryData: DayItinerary[] = [
   {
     date: '3/09',
     day: '星期一',
+    headerImage: '/images/attractions/itinerary/1.webp',
     activities: [
       {
         time: '16:30',
@@ -78,6 +79,7 @@ export const itineraryData: DayItinerary[] = [
   {
     date: '3/10',
     day: '星期二',
+    headerImage: '/images/attractions/itinerary/2.webp',
     activities: [
       {
         time: '09:00',
@@ -156,7 +158,7 @@ export const itineraryData: DayItinerary[] = [
   {
     date: '3/11',
     day: '星期三',
-    headerImage: '/images/attractions/ritsurin-main.webp',
+    headerImage: '/images/attractions/itinerary/3.webp',
     activities: [
       {
         time: '07:00',
@@ -209,7 +211,7 @@ export const itineraryData: DayItinerary[] = [
   {
     date: '3/12',
     day: '星期四',
-    headerImage: '/images/attractions/shodoshima-windmill.webp',
+    headerImage: '/images/attractions/itinerary/4.webp',
     activities: [
       {
         time: '09:00',
@@ -252,7 +254,7 @@ export const itineraryData: DayItinerary[] = [
   {
     date: '3/13',
     day: '星期五',
-    headerImage: '/images/attractions/okayama-castle-main.webp',
+    headerImage: '/images/attractions/itinerary/5.webp',
     activities: [
       {
         time: '07:00',
