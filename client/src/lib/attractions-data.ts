@@ -10,7 +10,6 @@ export const attractions: Attraction[] = [
       '/images/attractions/kurashiki/2.webp',
       '/images/attractions/kurashiki/3.webp',
       '/images/attractions/kurashiki/4.webp',
-      '/images/attractions/kurashiki/5.webp',
     ],
     highlights: [
       '白壁土藏群 - 保存完好的江戶時期建築',
@@ -26,10 +25,10 @@ export const attractions: Attraction[] = [
     name: '岡山後樂園',
     description: '日本三大名園之一,獲得米其林三星評價。這座迴遊式大名庭園展現了江戶時代的風采,與岡山城交相輝映。',
     images: [
-      '/images/attractions/korakuen-4.webp',
-      '/images/attractions/korakuen-5.webp',
-      '/images/attractions/korakuen-6.webp',
-      '/images/attractions/korakuen-7.webp',
+      '/images/attractions/korakuen/1.webp',
+      '/images/attractions/korakuen/2.webp',
+      '/images/attractions/korakuen/3.webp',
+      '/images/attractions/korakuen/4.webp',
     ],
     highlights: [
       '唯心山 - 俯瞰整個庭園的最佳視角',
@@ -43,10 +42,10 @@ export const attractions: Attraction[] = [
     name: '尾道貓之細道',
     description: '隱藏在尾道老街的迷你小巷,因聚集了許多貓咪而聞名。是貓奴和攝影愛好者的朝聖地。',
     images: [
-      '/images/attractions/onomichi-cat-alley-1.webp',
-      '/images/attractions/onomichi-cat-alley-2.webp',
-      '/images/attractions/onomichi-cat-alley-1.webp',
-      '/images/attractions/onomichi-cat-alley-2.webp',
+      '/images/attractions/onomichi/1.webp',
+      '/images/attractions/onomichi/2.webp',
+      '/images/attractions/onomichi/3.webp',
+      '/images/attractions/onomichi/4.webp',
     ],
     highlights: [
       '貓咪聚集地 - 每年吸引60萬名遊客',
@@ -64,6 +63,7 @@ export const attractions: Attraction[] = [
       '/images/attractions/senkoji/1.webp',
       '/images/attractions/senkoji/2.webp',
       '/images/attractions/senkoji/3.webp',
+      '/images/attractions/senkoji/4.webp',
     ],
     highlights: [
       '千光寺纜車 - 欣賞沿途山海美景',
@@ -77,10 +77,10 @@ export const attractions: Attraction[] = [
     name: '寒霞溪',
     description: '日本三大溪谷美之一,位於小豆島。以奇岩怪石與四季分明的自然景觀聞名,特別是秋天的紅葉極為壯觀。',
     images: [
-      '/images/attractions/kankakei-1.webp',
-      '/images/attractions/kankakei-2.webp',
-      '/images/attractions/kankakei-3.webp',
-      '/images/attractions/kankakei-5.webp',
+      '/images/attractions/kankakei/1.webp',
+      '/images/attractions/kankakei/2.webp',
+      '/images/attractions/kankakei/3.webp',
+      '/images/attractions/kankakei/4.webp',
     ],
     highlights: [
       '寒霞溪纜車 - 穿梭於奇岩紅葉之間',
@@ -94,11 +94,10 @@ export const attractions: Attraction[] = [
     name: '栗林公園',
     description: '日本三大名園之一,擁有超過400年歷史的大名庭園。四季景色各異,春天杜鵑花盛開尤為壯觀。',
     images: [
-      '/images/attractions/ritsurin-main.webp',
-      '/images/attractions/ritsurin-1.webp',
-      '/images/attractions/ritsurin-2.webp',
-      '/images/attractions/ritsurin-3.webp',
-      '/images/attractions/ritsurin-4.webp',
+      '/images/attractions/ritsurin/1.webp',
+      '/images/attractions/ritsurin/2.webp',
+      '/images/attractions/ritsurin/3.webp',
+      '/images/attractions/ritsurin/4.webp',
     ],
     highlights: [
       '掬月亭 - 品嚐抹茶賞庭園美景',
@@ -115,7 +114,7 @@ export const attractions: Attraction[] = [
       '/images/attractions/ogijima/1.webp',
       '/images/attractions/ogijima/2.webp',
       '/images/attractions/ogijima/3.webp',
-      '/images/attractions/ogijima/5.webp',
+      '/images/attractions/ogijima/4.webp',
     ],
     highlights: [
       '貓咪天堂 - 與島上悠閒的貓咪近距離接觸',
@@ -129,9 +128,10 @@ export const attractions: Attraction[] = [
     name: '岡山城',
     description: '因其黑色外牆而被稱為「烏城」,與鄰近的後樂園共同構成岡山的代表性景觀。夜間點燈後更顯壯麗。',
     images: [
-      '/images/attractions/okayama-1.webp',
-      '/images/attractions/okayama-2.webp',
-      '/images/attractions/okayama-3.webp',
+      '/images/attractions/okayama/1.webp',
+      '/images/attractions/okayama/2.webp',
+      '/images/attractions/okayama/3.webp',
+      '/images/attractions/okayama/4.webp',
     ],
     highlights: [
       '烏城 - 獨特的黑色天守閣',
@@ -145,10 +145,10 @@ export const attractions: Attraction[] = [
     name: '鞆之浦港町',
     description: '位於廣島的古老港町,保留了江戶時期的風貌。寧靜的港灣和傳統建築營造出時光停駐的感覺。',
     images: [
-      '/images/attractions/tomonoura-1.webp',
-      '/images/attractions/tomonoura-2.webp',
-      '/images/attractions/tomonoura-1.webp',
-      '/images/attractions/tomonoura-2.webp',
+      '/images/attractions/tomonoura/1.webp',
+      '/images/attractions/tomonoura/2.webp',
+      '/images/attractions/tomonoura/3.webp',
+      '/images/attractions/tomonoura/4.webp',
     ],
     highlights: [
       '常夜燈 - 日本現存最古老的燈塔',
