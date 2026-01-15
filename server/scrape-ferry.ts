@@ -1,4 +1,4 @@
-import axios, { AxiosError } from 'axios';
+import axios from 'axios';
 import * as cheerio from 'cheerio';
 import fs from 'fs';
 import path from 'path';
@@ -34,7 +34,7 @@ async function retryWithBackoff<T>(
       lastError = error as Error;
       if (i < maxRetries - 1) {
         const delay = Math.pow(2, i) * delayMs;
-        console.warn(`[RETRY] Attempt ${i + 1}/${maxRetries} failed, retrying in ${delay}ms...`);
+        console.log(`[SCRAPE] Retry attempt ${i + 1}/${maxRetries} in ${delay}ms`);
         await new Promise(resolve => setTimeout(resolve, delay));
       }
     }
@@ -45,7 +45,7 @@ async function retryWithBackoff<T>(
 
 // ============ 時間格式化 ============
 function formatTime(time: string): string {
-  const match = time.match(/(\d{1,2}):(\d{2})/);
+  const match = time.match(/(\\d{1,2}):(\\d{2})/);
   if (match) {
     return `${match[1].padStart(2, '0')}:${match[2]}`;
   }
@@ -146,15 +146,15 @@ function validateFerryData(data: any): boolean {
   const required = ['shodoshima', 'ogi', 'uno'];
   for (const key of required) {
     if (!data[key]) {
-      console.error(`[VALIDATE] Missing route: ${key}`);
+      console.error(`[SCRAPE] Missing route: ${key}`);
       return false;
     }
     if (!Array.isArray(data[key].outbound) || !Array.isArray(data[key].inbound)) {
-      console.error(`[VALIDATE] Invalid structure for route: ${key}`);
+      console.error(`[SCRAPE] Invalid structure for route: ${key}`);
       return false;
     }
     if (data[key].outbound.length === 0 || data[key].inbound.length === 0) {
-      console.error(`[VALIDATE] Empty schedule for route: ${key}`);
+      console.error(`[SCRAPE] Empty schedule for route: ${key}`);
       return false;
     }
   }
@@ -164,19 +164,14 @@ function validateFerryData(data: any): boolean {
 // ============ 爬蟲函數：小豆島 (池田) ============
 async function scrapeShodoshima() {
   try {
-    console.log('[SCRAPE] Starting Shodoshima ferry...');
     const url = 'https://ryobi-shodoshima.jp/timetable/timetable_takamatsu/';
-
-    const { data } = await retryWithBackoff(() =>
-      axios.get(url, SCRAPE_CONFIG)
-    );
+    const { data } = await retryWithBackoff(() => axios.get(url, SCRAPE_CONFIG));
 
     const $ = cheerio.load(data);
     const outbound: { out: string; arr: string }[] = [];
     const inbound: { out: string; arr: string }[] = [];
 
     const table = $('table.tbl-time').first();
-
     table.find('tbody tr').each((i, el) => {
       const cells = $(el).find('td');
 
@@ -186,10 +181,7 @@ async function scrapeShodoshima() {
         const arrTime = outboundDiv.find('p.time-to').text().trim();
 
         if (outTime && arrTime) {
-          outbound.push({
-            out: formatTime(outTime),
-            arr: formatTime(arrTime)
-          });
+          outbound.push({ out: formatTime(outTime), arr: formatTime(arrTime) });
         }
       }
 
@@ -199,16 +191,13 @@ async function scrapeShodoshima() {
         const arrTime = inboundDiv.find('p.time-to').text().trim();
 
         if (outTime && arrTime) {
-          inbound.push({
-            out: formatTime(outTime),
-            arr: formatTime(arrTime)
-          });
+          inbound.push({ out: formatTime(outTime), arr: formatTime(arrTime) });
         }
       }
     });
 
     const success = outbound.length > 0 && inbound.length > 0;
-    console.log(`[SCRAPE] Shodoshima ${success ? '✅ SUCCESS' : '⚠️  FALLBACK'} - Outbound: ${outbound.length}, Inbound: ${inbound.length}`);
+    console.log(`[SCRAPE] Shodoshima: ${success ? 'SUCCESS' : 'FALLBACK'} (${outbound.length}/${inbound.length})`);
 
     return {
       outbound: outbound.length > 0 ? outbound : STATIC_DATA.shodoshima.outbound,
@@ -216,7 +205,7 @@ async function scrapeShodoshima() {
       success
     };
   } catch (error) {
-    console.error('[SCRAPE] Shodoshima failed:', error instanceof Error ? error.message : error);
+    console.warn('[SCRAPE] Shodoshima scrape failed, using fallback');
     return {
       outbound: STATIC_DATA.shodoshima.outbound,
       inbound: STATIC_DATA.shodoshima.inbound,
@@ -228,12 +217,8 @@ async function scrapeShodoshima() {
 // ============ 爬蟲函數：男木島 ============
 async function scrapeOgi() {
   try {
-    console.log('[SCRAPE] Starting Ogijima ferry...');
     const url = 'https://meon.co.jp/access';
-
-    const { data } = await retryWithBackoff(() =>
-      axios.get(url, SCRAPE_CONFIG)
-    );
+    const { data } = await retryWithBackoff(() => axios.get(url, SCRAPE_CONFIG));
 
     const $ = cheerio.load(data);
     const outbound: { out: string; arr: string; stop?: string }[] = [];
@@ -278,7 +263,7 @@ async function scrapeOgi() {
     });
 
     const success = outbound.length > 0 && inbound.length > 0;
-    console.log(`[SCRAPE] Ogijima ${success ? '✅ SUCCESS' : '⚠️  FALLBACK'} - Outbound: ${outbound.length}, Inbound: ${inbound.length}`);
+    console.log(`[SCRAPE] Ogijima: ${success ? 'SUCCESS' : 'FALLBACK'} (${outbound.length}/${inbound.length})`);
 
     return {
       outbound: outbound.length > 0 ? outbound : STATIC_DATA.ogi.outbound,
@@ -286,7 +271,7 @@ async function scrapeOgi() {
       success
     };
   } catch (error) {
-    console.error('[SCRAPE] Ogijima failed:', error instanceof Error ? error.message : error);
+    console.warn('[SCRAPE] Ogijima scrape failed, using fallback');
     return {
       outbound: STATIC_DATA.ogi.outbound,
       inbound: STATIC_DATA.ogi.inbound,
@@ -298,12 +283,8 @@ async function scrapeOgi() {
 // ============ 爬蟲函數：岡山 ============
 async function scrapeUno() {
   try {
-    console.log('[SCRAPE] Starting Uno (Okayama) ferry...');
     const url = 'https://www.shikokuferry.com/route3';
-
-    const { data } = await retryWithBackoff(() =>
-      axios.get(url, SCRAPE_CONFIG)
-    );
+    const { data } = await retryWithBackoff(() => axios.get(url, SCRAPE_CONFIG));
 
     const $ = cheerio.load(data);
     const outbound: { out: string; arr: string }[] = [];
@@ -316,10 +297,7 @@ async function scrapeUno() {
         const time = $(cols[0]).text().trim();
         const arrival = $(cols[1]).text().trim();
         if (time && arrival && !time.includes('*')) {
-          outbound.push({
-            out: formatTime(time),
-            arr: formatTime(arrival)
-          });
+          outbound.push({ out: formatTime(time), arr: formatTime(arrival) });
         }
       }
     });
@@ -331,16 +309,13 @@ async function scrapeUno() {
         const time = $(cols[0]).text().trim();
         const arrival = $(cols[1]).text().trim();
         if (time && arrival && !time.includes('*')) {
-          inbound.push({
-            out: formatTime(time),
-            arr: formatTime(arrival)
-          });
+          inbound.push({ out: formatTime(time), arr: formatTime(arrival) });
         }
       }
     });
 
     const success = outbound.length > 0;
-    console.log(`[SCRAPE] Uno ${success ? '✅ SUCCESS' : '⚠️  FALLBACK'} - Outbound: ${outbound.length}, Inbound: ${inbound.length}`);
+    console.log(`[SCRAPE] Uno: ${success ? 'SUCCESS' : 'FALLBACK'} (${outbound.length}/${inbound.length})`);
 
     return {
       outbound: outbound.length > 0 ? outbound : STATIC_DATA.uno.outbound,
@@ -348,7 +323,7 @@ async function scrapeUno() {
       success
     };
   } catch (error) {
-    console.error('[SCRAPE] Uno failed:', error instanceof Error ? error.message : error);
+    console.warn('[SCRAPE] Uno scrape failed, using fallback');
     return {
       outbound: STATIC_DATA.uno.outbound,
       inbound: STATIC_DATA.uno.inbound,
@@ -360,7 +335,7 @@ async function scrapeUno() {
 // ============ 主爬蟲函數 ============
 async function scrapeFerry() {
   try {
-    console.log('[SCRAPE] Starting ferry scrape for all three routes...');
+    console.log('[SCRAPE] Starting ferry scrape for all routes');
 
     const [shodosima, ogi, uno] = await Promise.all([
       scrapeShodoshima(),
@@ -392,24 +367,23 @@ async function scrapeFerry() {
     };
 
     if (!validateFerryData(result)) {
-      console.error('[SCRAPE] Data validation failed');
       throw new Error('Invalid ferry data structure');
     }
 
     const dataPath = path.join(__dirname, 'ferry_data.json');
     fs.writeFileSync(dataPath, JSON.stringify(result, null, 2));
-    console.log(`[SCRAPE] ✅ Completed. Status: ${result.syncStatus}. Saved to ${dataPath}`);
+    console.log(`[SCRAPE] Completed - Status: ${result.syncStatus}`);
 
     return result;
   } catch (error) {
-    console.error('[SCRAPE] Fatal error:', error instanceof Error ? error.message : error);
+    console.error('[SCRAPE] Fatal error:', error);
     throw error;
   }
 }
 
 if (process.argv[1] === fileURLToPath(import.meta.url)) {
   scrapeFerry().catch(err => {
-    console.error('Scrape failed:', err);
+    console.error('[SCRAPE] Scrape failed:', err);
     process.exit(1);
   });
 }
