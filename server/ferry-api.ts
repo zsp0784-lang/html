@@ -14,7 +14,7 @@ const SCRAPE_PASSWORD = process.env.PASSWORD || 'default-password';
 
 // ============ 路徑管理 ============
 function getDataPath(): string {
-  return path.join(__dirname, 'ferry_data.json');
+  return path.join(__dirname, '..', 'ferry_data.json');
 }
 
 // ============ 數據驗證 ============
@@ -39,7 +39,7 @@ router.get('/schedules', (req, res) => {
     const dataPath = getDataPath();
 
     if (!fs.existsSync(dataPath)) {
-      console.warn(`[FERRY] Data file not found`);
+      console.warn(`[FERRY] Data file not found at ${dataPath}`);
       return res.status(404).json({
         error: 'Ferry data file not found',
         timestamp: new Date().toISOString()
@@ -124,6 +124,7 @@ router.get('/health', (req, res) => {
       status: 'ok',
       dataFileExists: fileExists,
       lastUpdated,
+      dataPath: process.env.NODE_ENV === 'development' ? dataPath : undefined,
       timestamp: new Date().toISOString()
     });
   } catch (error) {
