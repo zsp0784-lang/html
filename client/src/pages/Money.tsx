@@ -105,12 +105,11 @@ export default function Money() {
           balances[member] -= expense.amount;
         });
       } else if (expense.paymentType === '還款給誰') {
-        // 還款給誰：支付者還錢給選中的人，抵消債務
-        const amountPerPerson = expense.amount / expense.splitWith.length;
-        expense.splitWith.forEach(member => {
-          balances[expense.payer] += amountPerPerson;  // ✅ 支付人的欠款減少
-          balances[member] -= amountPerPerson;         // ✅ 接收人的被欠減少
-        });
+        // 還款給誰：支付者還錢給選中的人，每個人都收到整筆金額（不分攤）  
+        expense.splitWith.forEach(member => {  
+          balances[expense.payer] += expense.amount;  // 支付人的欠款減少整筆  
+          balances[member] -= expense.amount;         // 接收人的被欠減少整筆  
+        });  
       }
     });
 
