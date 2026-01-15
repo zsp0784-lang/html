@@ -45,7 +45,7 @@ async function retryWithBackoff<T>(
 
 // ============ 時間格式化 ============
 function formatTime(time: string): string {
-  const match = time.match(/(\\d{1,2}):(\\d{2})/);
+  const match = time.match(/(\d{1,2}):(\d{2})/);
   if (match) {
     return `${match[1].padStart(2, '0')}:${match[2]}`;
   }
@@ -370,7 +370,7 @@ async function scrapeFerry() {
       throw new Error('Invalid ferry data structure');
     }
 
-    const dataPath = path.join(__dirname, 'ferry_data.json');
+    const dataPath = path.join(__dirname, '..', 'ferry_data.json');
     fs.writeFileSync(dataPath, JSON.stringify(result, null, 2));
     console.log(`[SCRAPE] Completed - Status: ${result.syncStatus}`);
 
