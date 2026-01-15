@@ -106,12 +106,11 @@ export default function Money() {
         });
       } else if (expense.paymentType === '還款給誰') {
         // 還款給誰：支付者還錢給選中的人，減少債務
-        const amountPerPerson = expense.amount / expense.splitWith.length;
-        expense.splitWith.forEach(member => {
-          balances[expense.payer] -= amountPerPerson;  // 支付者欠款減少
-          balances[member] += amountPerPerson;         // 接收者被欠減少
-        });
-      }
+        expense.splitWith.forEach(member => {  
+          balances[expense.payer] += amountPerPerson;  // ✅ 支付人的欠款減少  
+          balances[member] -= amountPerPerson;         // ✅ 接收人的被欠減少  
+        });  
+      }  
     });
 
     // 使用貪心算法計算最優結算方案
