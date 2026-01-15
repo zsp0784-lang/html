@@ -13,6 +13,9 @@ const DATA_DIR = process.env.DATA_DIR || '/data';
 const DATA_FILE = path.join(DATA_DIR, 'expenses.json');
 const MAX_BACKUPS = 3;
 
+// ============ 初始化標誌 ============
+let dataDirInitialized = false;
+
 // ============ 文件鎖機制（防止並發問題） ============
 class FileLock {
   private locks = new Map<string, Promise<void>>();
@@ -34,11 +37,14 @@ class FileLock {
 
 const fileLock = new FileLock();
 
-// ============ 初始化數據目錄 ============
+// ============ 初始化數據目錄（只執行一次） ============
 async function ensureDataDir(): Promise<void> {
+  if (dataDirInitialized) return;
+
   try {
     await fs.mkdir(DATA_DIR, { recursive: true });
-    console.log(`[MONEY] Data directory ensured: ${DATA_DIR}`);
+    dataDirInitialized = true;
+    console.log(`[MONEY] Data directory ready: ${DATA_DIR}`);
   } catch (error) {
     console.error('[MONEY] Failed to create data directory:', error);
     throw error;
@@ -56,7 +62,7 @@ async function initializeDataFile(): Promise<void> {
       version: '1.0'
     };
     await fs.writeFile(DATA_FILE, JSON.stringify(initialData, null, 2));
-    console.log(`[MONEY] Initialized expenses file at ${DATA_FILE}`);
+    console.log(`[MONEY] Initialized expenses file`);
   }
 }
 
@@ -107,19 +113,17 @@ async function writeExpensesFile(data: any): Promise<void> {
       for (let i = MAX_BACKUPS; i < backups.length; i++) {
         try {
           await fs.unlink(path.join(DATA_DIR, backups[i]));
-          console.log(`[MONEY] Deleted old backup: ${backups[i]}`);
         } catch (err) {
-          console.warn(`[MONEY] Failed to delete backup ${backups[i]}:`, err);
+          console.warn(`[MONEY] Failed to delete backup ${backups[i]}`);
         }
       }
     } catch (backupError) {
-      console.warn('[MONEY] Backup creation skipped:', backupError);
+      console.warn('[MONEY] Backup creation skipped');
     }
 
     // 寫入新數據
     data.lastUpdated = new Date().toISOString();
     await fs.writeFile(DATA_FILE, JSON.stringify(data, null, 2));
-    console.log('[MONEY] Data file written successfully');
   } catch (error) {
     console.error('[MONEY] Error writing expenses file:', error);
     throw error;
@@ -167,16 +171,12 @@ router.get('/expenses', async (_req: Request, res: Response) => {
 // ============ 新增記帳 ============
 router.post('/expenses', async (req: Request, res: Response) => {
   try {
-    // 驗證請求數據
     validateExpense(req.body);
-
     const newExpense = req.body;
 
-    // 使用文件鎖確保並發安全
     await fileLock.acquire('expenses', async () => {
       const data = await readExpensesFile();
 
-      // 檢查 ID 是否重複
       if (data.expenses.some((e: any) => e.id === newExpense.id)) {
         throw new Error('Expense with this ID already exists');
       }
@@ -185,7 +185,7 @@ router.post('/expenses', async (req: Request, res: Response) => {
       await writeExpensesFile(data);
     });
 
-    console.log(`[MONEY] Expense added: ${newExpense.id} - ¥${newExpense.amount} by ${newExpense.payer}`);
+    console.log(`[MONEY] Expense added: ${newExpense.id}`);
     res.json({
       success: true,
       expense: newExpense,
@@ -312,7 +312,6 @@ router.get('/stats', async (_req: Request, res: Response) => {
       byPayer: {} as { [key: string]: { count: number; total: number } }
     };
 
-    // 按支付人統計
     data.expenses.forEach((expense: any) => {
       if (!stats.byPayer[expense.payer]) {
         stats.byPayer[expense.payer] = { count: 0, total: 0 };
@@ -350,7 +349,6 @@ router.get('/health', async (_req: Request, res: Response) => {
     res.json({
       status: 'ok',
       dataFileExists: fileExists,
-      dataPath,
       lastUpdated,
       timestamp: new Date().toISOString()
     });
