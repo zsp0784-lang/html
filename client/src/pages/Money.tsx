@@ -104,14 +104,14 @@ export default function Money() {
           balances[expense.payer] += expense.amount;
           balances[member] -= expense.amount;
         });
-      } else if (expense.paymentType === '還款給誰') {
-        // 還款給誰：支付者還錢給選中的人，減少債務
-        expense.splitWith.forEach(member => {  
-          balances[expense.payer] += amountPerPerson;  // ✅ 支付人的欠款減少  
-          balances[member] -= amountPerPerson;         // ✅ 接收人的被欠減少  
-        });  
+      } else if (expense.paymentType === '還款給誰') {  
+       // 還款給誰：支付者還錢給選中的人，抵消債務  
+        const amountPerPerson = expense.amount / expense.splitWith.length;  
+          expense.splitWith.forEach(member => {    
+          balances[expense.payer] += amountPerPerson;  // ✅ 支付人的欠款減少    
+          balances[member] -= amountPerPerson;         // ✅ 接收人的被欠減少    
+        });    
       }  
-    });
 
     // 使用貪心算法計算最優結算方案
     const newSettlements: Settlement[] = [];
