@@ -22,7 +22,7 @@ export function VisitJapanCard() {
       </div>
       <div className="p-4">
         <div className="flex items-start justify-between mb-2">
-          <h4 className="font-bold text-primary">日本入境審查及海關申報</h4>
+          <h4 className="font-serif text-lg font-bold text-primary">日本入境審查及海關申報</h4>
           <ExternalLink className="h-4 w-4 text-muted-foreground group-hover:text-accent transition-colors" />
         </div>
         <p className="text-sm text-muted-foreground leading-relaxed">
