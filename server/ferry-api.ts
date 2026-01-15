@@ -39,10 +39,9 @@ router.get('/schedules', (req, res) => {
     const dataPath = getDataPath();
 
     if (!fs.existsSync(dataPath)) {
-      console.warn(`[FERRY] Data file not found at ${dataPath}`);
+      console.warn(`[FERRY] Data file not found`);
       return res.status(404).json({
         error: 'Ferry data file not found',
-        path: dataPath,
         timestamp: new Date().toISOString()
       });
     }
@@ -61,7 +60,7 @@ router.get('/schedules', (req, res) => {
 
     res.json(ferryData);
   } catch (error) {
-    console.error('[FERRY] API Error:', error instanceof Error ? error.message : error);
+    console.error('[FERRY] API Error:', error);
     res.status(500).json({
       error: 'Failed to read ferry schedules',
       message: process.env.NODE_ENV === 'development' ? (error instanceof Error ? error.message : String(error)) : undefined,
@@ -73,28 +72,25 @@ router.get('/schedules', (req, res) => {
 // ============ 爬蟲端點 ============
 router.post('/scrape', async (req, res) => {
   try {
-    // 從 query 參數或 body 中讀取密碼
     const passwordFromQuery = req.query.password as string;
     const passwordFromBody = req.body?.password as string;
     const providedPassword = passwordFromQuery || passwordFromBody;
 
-    console.log(`[SCRAPE] Password verification attempt`);
-
     // 驗證密碼
     if (!providedPassword || providedPassword !== SCRAPE_PASSWORD) {
-      console.warn(`[SECURITY] Unauthorized scrape attempt`);
+      console.warn(`[FERRY] Unauthorized scrape attempt`);
       return res.status(401).json({
         error: 'Unauthorized - Invalid password',
         timestamp: new Date().toISOString()
       });
     }
 
-    console.log('[SCRAPE] Authorization passed, starting scrape...');
+    console.log('[FERRY] Starting scrape...');
 
     // 執行爬蟲
     const data = await scrapeFerry();
 
-    console.log('[SCRAPE] ✅ Scrape completed successfully');
+    console.log(`[FERRY] Scrape completed - Status: ${data.syncStatus}`);
     res.json({
       success: true,
       message: 'Scrape completed successfully',
@@ -103,7 +99,7 @@ router.post('/scrape', async (req, res) => {
       timestamp: new Date().toISOString()
     });
   } catch (error) {
-    console.error('[SCRAPE] Error:', error instanceof Error ? error.message : error);
+    console.error('[FERRY] Scrape Error:', error);
     res.status(500).json({
       error: 'Scrape failed',
       message: process.env.NODE_ENV === 'development' ? (error instanceof Error ? error.message : String(error)) : undefined,
@@ -127,7 +123,6 @@ router.get('/health', (req, res) => {
     res.json({
       status: 'ok',
       dataFileExists: fileExists,
-      dataPath,
       lastUpdated,
       timestamp: new Date().toISOString()
     });
