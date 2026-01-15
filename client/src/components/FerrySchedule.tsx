@@ -63,7 +63,10 @@ export const FerrySchedule: React.FC = () => {
       }
       
       const result = await response.json();
-      setData(result.data);
+      console.log('Scrape result:', result);
+      
+      // 同步成功後，重新獲取最新數據
+      await fetchSchedules();
       setLastSuccess(true);
       toast.success("更新成功");
     } catch (error) {
