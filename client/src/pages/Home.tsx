@@ -15,13 +15,7 @@ import { useState, useEffect } from 'react';
 import Money from './Money';
 import Traffic from './Traffic';
 
-const images = [
-  '/images/ui/hero-banner.png',
-  '/images/attractions/kurashiki-night-1.webp',
-  '/images/attractions/onomichi-cat-alley-1.webp',
-  '/images/attractions/ritsurin-main.webp',
-  '/images/attractions/angel-road-main.webp',
-];
+const heroImage = '/images/ui/hero-banner.png';
 
 export default function Home() {
   const [activeTab, setActiveTab] = useState<'itinerary' | 'routes' | 'restaurants' | 'money' | 'attractions' | 'accommodations' | 'ferry' | 'traffic'>('itinerary');
@@ -73,7 +67,7 @@ export default function Home() {
 
       <div className="relative overflow-hidden">
         <img loading="lazy"
-          src={images[0]}
+          src={heroImage}
           alt="日本行程"
           width={1200}
           height={384}
@@ -126,7 +120,6 @@ export default function Home() {
                   <ItineraryCard
                     key={idx}
                     day={day}
-                    image={images[idx + 1]}
                   />
                 ))}
               </div>
