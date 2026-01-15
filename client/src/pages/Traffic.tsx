@@ -148,7 +148,7 @@ export default function Traffic() {
         <div className="mb-8">
           <h2 className="text-xl md:text-2xl font-bold text-primary mb-4 flex items-center gap-2">
             <span className="text-2xl">🧭</span>
-            導航位置
+            極速導航
           </h2>
           <div className="space-y-6">
             {areaOrder.map((area) => (
@@ -198,7 +198,7 @@ export default function Traffic() {
         <div className="mb-4">
           <h2 className="text-xl md:text-2xl font-bold text-primary flex items-center gap-2">
             <span className="text-2xl">📍</span>
-            路況區域快選
+            區域快選
           </h2>
         </div>
 
