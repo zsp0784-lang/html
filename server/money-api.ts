@@ -9,7 +9,7 @@ const __dirname = path.dirname(__filename);
 const router = Router();
 
 // ============ 配置 ============
-const DATA_DIR = process.env.DATA_DIR || '/data';
+const DATA_DIR = path.join(__dirname, '..', 'data');
 const DATA_FILE = path.join(DATA_DIR, 'expenses.json');
 const MAX_BACKUPS = 3;
 
@@ -350,6 +350,7 @@ router.get('/health', async (_req: Request, res: Response) => {
       status: 'ok',
       dataFileExists: fileExists,
       lastUpdated,
+      dataDir: process.env.NODE_ENV === 'development' ? DATA_DIR : undefined,
       timestamp: new Date().toISOString()
     });
   } catch (error) {
