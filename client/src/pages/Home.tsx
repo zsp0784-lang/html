@@ -1,6 +1,7 @@
 import { ItineraryCard } from '@/components/ItineraryCard';
 import { RestaurantCard } from '@/components/RestaurantCard';
 import { WeatherWidget } from '@/components/WeatherWidget';
+import { VisitJapanCard } from '@/components/VisitJapanCard';
 import { WalkingRouteCard } from '@/components/WalkingRouteCard';
 import AccommodationCard from '@/components/AccommodationCard';
 import AttractionCard from '@/components/AttractionCard';
@@ -180,6 +181,7 @@ export default function Home() {
           <div className="lg:col-span-1">
             <div className="sticky top-4 space-y-6">
               <WeatherWidget />
+              <VisitJapanCard />
 
               <div className="rounded-lg border border-border/50 bg-card p-6 shadow-sm">
                 <h3 className="font-serif text-xl font-bold text-primary mb-4">行程概覽</h3>
