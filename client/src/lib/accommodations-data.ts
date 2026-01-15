@@ -1,160 +1,63 @@
-import { Attraction } from '@/components/AttractionGallery';
+export interface Accommodation {
+  id: string;
+  name: string;
+  location: string;
+  description: string;
+  images: string[];
+  features: string[];
+  amenities: string[];
+  googleMapsUrl: string;
+}
 
-export const attractions: Attraction[] = [
+export const accommodations: Accommodation[] = [
   {
-    id: 'kurashiki-bikan',
-    name: '倉敷美觀地區',
-    description: '擁有江戶風格的白壁土藏建築群,是日本最具代表性的歷史街道之一。倉敷川兩岸的柳樹與古建築交織出絕美的日夜景色。',
+    id: "grand-base-kurashiki-chuo",
+    name: "GRAND BASE Kurashiki Chūō",
+    location: "倉敷市, 中央",
+    description: "GRAND BASE Kurashiki Chuo 位於倉敷，距離三溪園 400 公尺，提供 WiFi（免費）和座位區。住宿設有空調、設備齊全的簡易廚房、平面電視以及附沖洗座、免費盥洗用品 and 吹風機的私人衛浴。房間寬敞、設備乾淨新穎，有廚房還有鍋碗瓢盆，距離倉敷美觀地區超近，步行即可到達。房間大配置合理，有空間可以整理行李，床大又好睡。電視可以聯網Youtube。附近有很多餐飲、咖啡店。",
     images: [
-      '/images/attractions/kurashiki/1.webp',
-      '/images/attractions/kurashiki/2.webp',
-      '/images/attractions/kurashiki/3.webp',
-      '/images/attractions/kurashiki/4.webp',
+      "/images/accommodations/grand_base_kurashiki/1.webp",
+      "/images/accommodations/grand_base_kurashiki/2.webp",
+      "/images/accommodations/grand_base_kurashiki/3.webp",
+      "/images/accommodations/grand_base_kurashiki/6.webp",
+      "/images/accommodations/grand_base_kurashiki/4.webp",
+      "/images/accommodations/grand_base_kurashiki/5.webp"
     ],
-    highlights: [
-      '白壁土藏群 - 保存完好的江戶時期建築',
-      '倉敷川夜景 - 燈光倒映在河面上的美景',
-      '大原美術館 - 收藏日本及西方美術作品',
-      '古街商店街 - 傳統工藝品和特色小店',
-      '高砂橋 - 經典拍照地點',
-      '阿智神社 - 俯瞰美觀地區的最佳位置',
-    ],
+    features: ["3星級公寓式飯店", "評分 8.5（評比非常好）", "距離倉敷美觀地區超近", "衛浴廁所分開"],
+    amenities: ["自助入住系統", "簡易廚房", "沙發休息區", "聯網電視 (YouTube)", "免費 WiFi", "電梯", "洗衣機", "空氣清淨機"],
+    googleMapsUrl: "https://www.google.com/maps/search/?api=1&query=岡山縣倉敷市Chuo+2-3-21"
   },
   {
-    id: 'okayama-korakuen',
-    name: '岡山後樂園',
-    description: '日本三大名園之一,獲得米其林三星評價。這座迴遊式大名庭園展現了江戶時代的風采,與岡山城交相輝映。',
+    id: "fav-hotel-takamatsu",
+    name: "Fav Hotel Takamatsu",
+    location: "高松市, 瓦町",
+    description: "fav TAKAMATSU 位於高松，提供 4 星級住宿，設有露台。為住客提供空調客房，所有房型均有書桌、電熱水壺、冰箱、微波爐、保險箱、平面電視以及附沖洗座的私人衛浴。房間寬敞，設備齊全，滾筒洗衣機加上好用的晾衣架，浴室可以烘乾衣服非常方便。新的裝潢，房間內設備都很新，間接照明很舒適不刺眼。下午3點至晚上9點有服務人員，入口處左邊有賣咖啡。",
     images: [
-      '/images/attractions/korakuen/1.webp',
-      '/images/attractions/korakuen/2.webp',
-      '/images/attractions/korakuen/3.webp',
-      '/images/attractions/korakuen/4.webp',
+      "/images/accommodations/fav_takamatsu/1.webp",
+      "/images/accommodations/fav_takamatsu/2.webp",
+      "/images/accommodations/fav_takamatsu/3.webp",
+      "/images/accommodations/fav_takamatsu/4.webp",
+      "/images/accommodations/fav_takamatsu/5.webp",
+      "/images/accommodations/fav_takamatsu/6.webp"
     ],
-    highlights: [
-      '唯心山 - 俯瞰整個庭園的最佳視角',
-      '延養亭 - 藩主曾居住的建築',
-      '澤之池 - 庭園中心的巨大水池',
-      '借景建築 - 巧妙將岡山城納入景觀',
-    ],
+    features: ["4星級公寓式飯店", "評分 8.7（評比很棒）", "房間寬敞設備齊全", "早餐評價還不錯"],
+    amenities: ["簡易廚房", "房內洗衣機", "免費 WiFi", "浴室烘乾功能", "電梯", "空氣清淨機", "電子鎖入住", "私人停車場（需付費）"],
+    googleMapsUrl: "https://www.google.com/maps/search/?api=1&query=香川縣高松市塩上町2-4-20"
   },
   {
-    id: 'onomichi-cat-alley',
-    name: '尾道貓之細道',
-    description: '隱藏在尾道老街的迷你小巷,因聚集了許多貓咪而聞名。是貓奴和攝影愛好者的朝聖地。',
+    id: "holiday-villa-ta-view",
+    name: "Holiday Villa 旅生 (Ta-View)",
+    location: "小豆島, 土庄町",
+    description: "這是一個擁有寬敞庭院的住宿，可以欣賞到平靜的瀨戶內海景色。還可以享受燒烤的樂趣。庭院約70坪，鋪設草坪，可一邊欣賞瀨戶內海的美景，一邊享受烤肉的樂趣。房間的面積約58平方公尺，為1LDK（包含臥室、客廳、廚房、洗手間、浴室及廁所）。配備洗衣機、冰箱、電飯煲、微波爐等設備，適合長期住宿。客廳內設有沙發床，讓您可以悠閒地度過時光。",
     images: [
-      '/images/attractions/onomichi/1.webp',
-      '/images/attractions/onomichi/2.webp',
-      '/images/attractions/onomichi/3.webp',
-      '/images/attractions/onomichi/4.webp',
+      "/images/accommodations/ryosei/1.webp",
+      "/images/accommodations/ryosei/2.webp",
+      "/images/accommodations/ryosei/3.webp",
+      "/images/accommodations/ryosei/4.webp",
+      "/images/accommodations/ryosei/5.webp"
     ],
-    highlights: [
-      '貓咪聚集地 - 每年吸引60萬名遊客',
-      '狹窄石板路 - 充滿日本懷舊風情',
-      '貓咪藝術牆 - 可愛的貓咪主題壁畫',
-      '傳統民居 - 保存完好的江戶時期建築',
-      '貓主題咖啡館 - 邊喝咖啡邊與貓互動',
-    ],
-  },
-  {
-    id: 'senkoji-temple',
-    name: '千光寺',
-    description: '位於尾道山頂的古老寺廟,可搭乘纜車登頂。從這裡可俯瞰整個尾道市區和瀨戶內海的壯麗全景,是尾道最具代表性的地標。',
-    images: [
-      '/images/attractions/senkoji/1.webp',
-      '/images/attractions/senkoji/2.webp',
-      '/images/attractions/senkoji/3.webp',
-      '/images/attractions/senkoji/4.webp',
-    ],
-    highlights: [
-      '千光寺纜車 - 欣賞沿途山海美景',
-      '本堂絕景 - 俯瞰尾道水道與島嶼',
-      '文學小徑 - 漫步於充滿詩意的山間小路',
-      '千光寺本堂 - 歷史悠久的朱紅建築',
-    ],
-  },
-  {
-    id: 'kankakei-gorge',
-    name: '寒霞溪',
-    description: '日本三大溪谷美之一,位於小豆島。以奇岩怪石與四季分明的自然景觀聞名,特別是秋天的紅葉極為壯觀。',
-    images: [
-      '/images/attractions/kankakei/1.webp',
-      '/images/attractions/kankakei/2.webp',
-      '/images/attractions/kankakei/3.webp',
-      '/images/attractions/kankakei/4.webp',
-    ],
-    highlights: [
-      '寒霞溪纜車 - 穿梭於奇岩紅葉之間',
-      '四望頂 - 眺望瀨戶內海的絕佳地點',
-      '奇岩怪石 - 歷經千萬年風化的自然傑作',
-      '紅葉名所 - 日本著名的賞楓勝地',
-    ],
-  },
-  {
-    id: 'ritsurin-garden',
-    name: '栗林公園',
-    description: '日本三大名園之一,擁有超過400年歷史的大名庭園。四季景色各異,春天杜鵑花盛開尤為壯觀。',
-    images: [
-      '/images/attractions/ritsurin/1.webp',
-      '/images/attractions/ritsurin/2.webp',
-      '/images/attractions/ritsurin/3.webp',
-      '/images/attractions/ritsurin/4.webp',
-    ],
-    highlights: [
-      '掬月亭 - 品嚐抹茶賞庭園美景',
-      '飛來峰 - 公園最高點俯瞰全景',
-      '杜鵑花季 - 3-4月花海盛開',
-      '池泉迴遊式庭園 - 經典日式造園藝術',
-    ],
-  },
-  {
-    id: 'ogijima-island',
-    name: '男木島 (貓島)',
-    description: '瀨戶內海著名的「貓島」,島上隨處可見悠閒生活的貓咪。除了可愛的貓咪,這裡還有豐富的現代藝術裝置與迷宮般的石階漁村風情。',
-    images: [
-      '/images/attractions/ogijima/1.webp',
-      '/images/attractions/ogijima/2.webp',
-      '/images/attractions/ogijima/3.webp',
-      '/images/attractions/ogijima/4.webp',
-    ],
-    highlights: [
-      '貓咪天堂 - 與島上悠閒的貓咪近距離接觸',
-      '男木島燈塔 - 白色燈塔與藍天海景',
-      '石牆迷宮 - 充滿探索樂趣的傳統小巷',
-      '藝術裝置 - 瀨戶內國際藝術祭的精彩作品',
-    ],
-  },
-  {
-    id: 'okayama-castle',
-    name: '岡山城',
-    description: '因其黑色外牆而被稱為「烏城」,與鄰近的後樂園共同構成岡山的代表性景觀。夜間點燈後更顯壯麗。',
-    images: [
-      '/images/attractions/okayama/1.webp',
-      '/images/attractions/okayama/2.webp',
-      '/images/attractions/okayama/3.webp',
-      '/images/attractions/okayama/4.webp',
-    ],
-    highlights: [
-      '烏城 - 獨特的黑色天守閣',
-      '天守閣展望台 - 俯瞰岡山市區',
-      '夜間點燈 - 夢幻的燈光秀',
-      '月見橋 - 拍攝城堡的最佳角度',
-    ],
-  },
-  {
-    id: 'tomonoura-port',
-    name: '鞆之浦港町',
-    description: '位於廣島的古老港町,保留了江戶時期的風貌。寧靜的港灣和傳統建築營造出時光停駐的感覺。',
-    images: [
-      '/images/attractions/tomonoura/1.webp',
-      '/images/attractions/tomonoura/2.webp',
-      '/images/attractions/tomonoura/3.webp',
-      '/images/attractions/tomonoura/4.webp',
-    ],
-    highlights: [
-      '常夜燈 - 日本現存最古老的燈塔',
-      '港區老街 - 江戶時期的建築保存完好',
-      '對潮樓 - 歷史悠久的旅館',
-      '傳統漁港 - 感受日本漁村文化',
-    ],
-  },
+    features: ["整棟出租別墅", "瀨戶內海景觀", "70坪草坪庭院", "可烤肉（BBQ）"],
+    amenities: ["免費停車位", "完整廚房設備", "洗衣機", "空調", "免費 WiFi", "沙發床", "浴缸", "非接觸式入住"],
+    googleMapsUrl: "https://www.google.com/maps/search/?api=1&query=香川縣小豆郡土庄町甲3402-2"
+  }
 ];
