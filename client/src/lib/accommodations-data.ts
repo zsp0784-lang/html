@@ -10,7 +10,6 @@ export const attractions: Attraction[] = [
       '/images/attractions/kurashiki/2.webp',
       '/images/attractions/kurashiki/3.webp',
       '/images/attractions/kurashiki/4.webp',
-      '/images/attractions/kurashiki/5.webp',
     ],
     highlights: [
       '白壁土藏群 - 保存完好的江戶時期建築',
@@ -45,8 +44,8 @@ export const attractions: Attraction[] = [
     images: [
       '/images/attractions/onomichi/1.webp',
       '/images/attractions/onomichi/2.webp',
-      '/images/attractions/onomichi/1.webp',
-      '/images/attractions/onomichi/2.webp',
+      '/images/attractions/onomichi/3.webp',
+      '/images/attractions/onomichi/4.webp',
     ],
     highlights: [
       '貓咪聚集地 - 每年吸引60萬名遊客',
@@ -64,6 +63,7 @@ export const attractions: Attraction[] = [
       '/images/attractions/senkoji/1.webp',
       '/images/attractions/senkoji/2.webp',
       '/images/attractions/senkoji/3.webp',
+      '/images/attractions/senkoji/4.webp',
     ],
     highlights: [
       '千光寺纜車 - 欣賞沿途山海美景',
@@ -98,7 +98,6 @@ export const attractions: Attraction[] = [
       '/images/attractions/ritsurin/2.webp',
       '/images/attractions/ritsurin/3.webp',
       '/images/attractions/ritsurin/4.webp',
-      '/images/attractions/ritsurin/5.webp',
     ],
     highlights: [
       '掬月亭 - 品嚐抹茶賞庭園美景',
@@ -132,6 +131,7 @@ export const attractions: Attraction[] = [
       '/images/attractions/okayama/1.webp',
       '/images/attractions/okayama/2.webp',
       '/images/attractions/okayama/3.webp',
+      '/images/attractions/okayama/4.webp',
     ],
     highlights: [
       '烏城 - 獨特的黑色天守閣',
@@ -147,8 +147,8 @@ export const attractions: Attraction[] = [
     images: [
       '/images/attractions/tomonoura/1.webp',
       '/images/attractions/tomonoura/2.webp',
-      '/images/attractions/tomonoura/1.webp',
-      '/images/attractions/tomonoura/2.webp',
+      '/images/attractions/tomonoura/3.webp',
+      '/images/attractions/tomonoura/4.webp',
     ],
     highlights: [
       '常夜燈 - 日本現存最古老的燈塔',
