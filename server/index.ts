@@ -10,23 +10,6 @@ const __dirname = path.dirname(__filename);
 const app = express();
 const PORT = process.env.PORT || 8080;
 
-// ============ 環境變量驗證 ============
-function validateEnvironment() {
-  const required = ['PASSWORD'];
-  const missing = required.filter(key => !process.env[key]);
-
-  if (missing.length > 0) {
-    console.warn(`⚠️  Missing environment variables: ${missing.join(', ')}`);
-    console.warn('⚠️  Using default password for development only!');
-  }
-
-  if (process.env.PASSWORD === 'default-password' || !process.env.PASSWORD) {
-    console.warn('⚠️  WARNING: Using default password! Set PASSWORD env var in production');
-  }
-}
-
-validateEnvironment();
-
 // ============ 請求計數（用於優雅關閉） ============
 let activeRequests = 0;
 
@@ -47,8 +30,7 @@ app.use(express.urlencoded({ extended: true, limit: '10mb' }));
 
 // ============ 靜態文件 ============
 const staticPath = path.join(__dirname, 'public');
-
-console.log(`📁 Static files path: ${staticPath}`);
+console.log(`[INFO] Static files path: ${staticPath}`);
 app.use(express.static(staticPath));
 
 // ============ API 路由 ============
@@ -82,13 +64,7 @@ app.get('*', (req, res) => {
 
 // ============ 全局錯誤處理中間件 ============
 app.use((err: any, req: express.Request, res: express.Response, next: express.NextFunction) => {
-  console.error('[ERROR]', {
-    message: err.message,
-    stack: err.stack,
-    url: req.url,
-    method: req.method,
-    timestamp: new Date().toISOString()
-  });
+  console.error('[ERROR]', err.message);
 
   const statusCode = err.statusCode || 500;
   res.status(statusCode).json({
@@ -100,24 +76,23 @@ app.use((err: any, req: express.Request, res: express.Response, next: express.Ne
 
 // ============ 啟動伺服器 ============
 const server = app.listen(PORT, () => {
-  console.log(`✅ Server running on port ${PORT}`);
-  console.log(`🚀 Environment: ${process.env.NODE_ENV || 'development'}`);
-  console.log(`📊 Health check: http://localhost:${PORT}/api/health`);
+  console.log(`[INFO] ✅ Server running on port ${PORT}`);
+  console.log(`[INFO] 🚀 Environment: ${process.env.NODE_ENV || 'development'}`);
+  console.log(`[INFO] 📊 Health check: http://localhost:${PORT}/api/health`);
 });
 
 // ============ 優雅關閉 ============
 function gracefulShutdown(signal: string) {
-  console.log(`\n📍 ${signal} received, starting graceful shutdown...`);
+  console.log(`[INFO] ${signal} received, starting graceful shutdown...`);
 
   server.close(() => {
-    console.log('✅ Server closed');
+    console.log('[INFO] Server closed');
     process.exit(0);
   });
 
   // 等待現有請求完成（最多 30 秒）
   const shutdownTimeout = setTimeout(() => {
-    console.error('❌ Forced shutdown after 30s timeout');
-    console.error(`⚠️  ${activeRequests} active requests still pending`);
+    console.error(`[ERROR] Forced shutdown after 30s timeout. ${activeRequests} active requests still pending`);
     process.exit(1);
   }, 30000);
 
@@ -135,20 +110,12 @@ process.on('SIGINT', () => gracefulShutdown('SIGINT'));
 
 // ============ 未捕獲異常處理 ============
 process.on('uncaughtException', (error) => {
-  console.error('[FATAL] Uncaught Exception:', {
-    message: error.message,
-    stack: error.stack,
-    timestamp: new Date().toISOString()
-  });
+  console.error('[ERROR] Uncaught Exception:', error.message);
   process.exit(1);
 });
 
 process.on('unhandledRejection', (reason, promise) => {
-  console.error('[FATAL] Unhandled Rejection:', {
-    reason,
-    promise,
-    timestamp: new Date().toISOString()
-  });
+  console.error('[ERROR] Unhandled Rejection:', reason);
   process.exit(1);
 });
 
