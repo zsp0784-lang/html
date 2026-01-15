@@ -9,7 +9,7 @@ const __dirname = path.dirname(__filename);
 
 // ============ 爬蟲配置 ============
 const SCRAPE_CONFIG = {
-  timeout: 15000, // 增加到 15 秒
+  timeout: 15000,
   headers: {
     'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36'
   },
@@ -33,7 +33,7 @@ async function retryWithBackoff<T>(
     } catch (error) {
       lastError = error as Error;
       if (i < maxRetries - 1) {
-        const delay = Math.pow(2, i) * delayMs; // 指數退避
+        const delay = Math.pow(2, i) * delayMs;
         console.warn(`[RETRY] Attempt ${i + 1}/${maxRetries} failed, retrying in ${delay}ms...`);
         await new Promise(resolve => setTimeout(resolve, delay));
       }
@@ -45,7 +45,7 @@ async function retryWithBackoff<T>(
 
 // ============ 時間格式化 ============
 function formatTime(time: string): string {
-  const match = time.match(/(\\d{1,2}):(\\d{2})/);
+  const match = time.match(/(\d{1,2}):(\d{2})/);
   if (match) {
     return `${match[1].padStart(2, '0')}:${match[2]}`;
   }
@@ -309,7 +309,6 @@ async function scrapeUno() {
     const outbound: { out: string; arr: string }[] = [];
     const inbound: { out: string; arr: string }[] = [];
 
-    // 去程：小豆島 (土庄) ➔ 岡山
     $('table').first().find('tr').each((i, el) => {
       if (i === 0) return;
       const cols = $(el).find('td');
@@ -325,7 +324,6 @@ async function scrapeUno() {
       }
     });
 
-    // 回程：岡山 ➔ 小豆島 (土庄)
     $('table').eq(1).find('tr').each((i, el) => {
       if (i === 0) return;
       const cols = $(el).find('td');
@@ -364,7 +362,6 @@ async function scrapeFerry() {
   try {
     console.log('[SCRAPE] Starting ferry scrape for all three routes...');
 
-    // 並行爬蟲三個船班
     const [shodosima, ogi, uno] = await Promise.all([
       scrapeShodoshima(),
       scrapeOgi(),
@@ -394,14 +391,12 @@ async function scrapeFerry() {
       lastUpdated: new Date().toISOString()
     };
 
-    // 驗證數據
     if (!validateFerryData(result)) {
       console.error('[SCRAPE] Data validation failed');
       throw new Error('Invalid ferry data structure');
     }
 
-    // 寫入文件
-    const dataPath = path.resolve(__dirname, '..', 'ferry_data.json');
+    const dataPath = path.join(__dirname, 'ferry_data.json');
     fs.writeFileSync(dataPath, JSON.stringify(result, null, 2));
     console.log(`[SCRAPE] ✅ Completed. Status: ${result.syncStatus}. Saved to ${dataPath}`);
 
@@ -412,7 +407,6 @@ async function scrapeFerry() {
   }
 }
 
-// ============ CLI 支持 ============
 if (process.argv[1] === fileURLToPath(import.meta.url)) {
   scrapeFerry().catch(err => {
     console.error('Scrape failed:', err);
