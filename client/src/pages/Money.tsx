@@ -8,7 +8,6 @@ interface Expense {
   id: string;
   amount: number;
   payer: string;
-  expenseType: string;
   paymentType: string;
   splitWith: string[];
   date: string;
@@ -21,14 +20,12 @@ interface Settlement {
 }
 
 const MEMBERS = ['瑋', '博', '帆'];
-const EXPENSE_TYPES = ['餐飲', '購物', '借款', '交通', '住宿', '門票', '其他'];
 const API_URL = '/api/money';
 
 export default function Money() {
   const [expenses, setExpenses] = useState<Expense[]>([]);
   const [amount, setAmount] = useState('');
   const [payer, setPayer] = useState('');
-  const [expenseType, setExpenseType] = useState('');
   const [paymentType, setPaymentType] = useState('三人分攤');
   const [splitWith, setSplitWith] = useState<string[]>([]);
   const [settlements, setSettlements] = useState<Settlement[]>([]);
@@ -159,12 +156,6 @@ export default function Money() {
       return;
     }
 
-    // 驗證帳務類型 - 只在非借錢/還款時需要
-    if (paymentType !== '借錢給誰' && paymentType !== '還款給誰' && !expenseType) {
-      toast.error('請選擇帳務類型');
-      return;
-    }
-
     // 驗證分帳人員
     if ((paymentType === '跟誰分攤' || paymentType === '借錢給誰' || paymentType === '還款給誰') && splitWith.length === 0) {
       toast.error('請選擇分帳人員');
@@ -175,7 +166,6 @@ export default function Money() {
       id: Date.now().toString(),
       amount: parseFloat(amount),
       payer,
-      expenseType,
       paymentType,
       splitWith,
       date: new Date().toLocaleString('zh-TW')
@@ -192,7 +182,6 @@ export default function Money() {
         toast.success('記帳成功！');
         setAmount('');
         setPayer('');
-        setExpenseType('');
         setPaymentType('三人分攤');
         setSplitWith([]);
         await fetchExpenses(); // 立即刷新
@@ -317,25 +306,6 @@ export default function Money() {
                 </select>
               </div>
 
-              {/* 帳務類型 - 只在非借錢/還款時顯示 */}
-              {paymentType !== '借錢給誰' && paymentType !== '還款給誰' && (
-                <div>
-                  <label className="block text-sm font-medium text-[#3D3D3D] mb-2">
-                    帳務類型
-                  </label>
-                  <select 
-                    value={expenseType} 
-                    onChange={(e) => setExpenseType(e.target.value)}
-                    className="w-full bg-[#F5E6E8] border border-[#E8DDD8] text-[#3D3D3D] rounded-md p-2"
-                  >
-                    <option value="">選擇類型</option>
-                    {EXPENSE_TYPES.map(type => (
-                      <option key={type} value={type}>{type}</option>
-                    ))}
-                  </select>
-                </div>
-              )}
-
               {/* 分帳人員選擇 */}
               {paymentType !== '三人分攤' && (
                 <div>
@@ -444,7 +414,6 @@ export default function Money() {
                   <div key={expense.id} className="flex items-start justify-between p-4 bg-[#F5E6E8] rounded-lg hover:shadow-md transition-shadow">
                     <div className="flex-1">
                       <div className="flex items-center gap-2 mb-1">
-                        <span className="text-sm font-semibold text-[#8B6F47]">{expense.expenseType}</span>
                         <span className="text-xs text-[#7A7A7A]">{expense.date}</span>
                       </div>
                       <div className="text-sm text-[#3D3D3D] font-black" style={{ fontFamily: "'Zen Kaku Gothic Antique', sans-serif" }}>
