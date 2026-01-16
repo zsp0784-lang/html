@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { X, Banknote, Trash2 } from 'lucide-react';
+import { X, Banknote } from 'lucide-react';
 import { toast } from 'sonner';
 
 interface Expense {
@@ -206,39 +206,21 @@ export default function Money() {
   };
 
   const handleDeleteExpense = async (id: string) => {
-    try {
-      const response = await fetch(`${API_URL}/expenses/${id}`, {
-        method: 'DELETE'
-      });
-
-      if (response.ok) {
-        toast.success('已刪除');
-        await fetchExpenses();
-      } else {
-        toast.error('刪除失敗');
-      }
-    } catch (error) {
-      console.error('Error deleting expense:', error);
-      toast.error('刪除失敗');
-    }
-  };
-
-  const handleClearAll = async () => {
-    if (window.confirm('確定要清空所有記錄嗎？此操作無法撤銷。')) {
+    if (window.confirm('確定要刪除這筆記錄嗎？')) {
       try {
-        const response = await fetch(`${API_URL}/expenses`, {
+        const response = await fetch(`${API_URL}/expenses/${id}`, {
           method: 'DELETE'
         });
 
         if (response.ok) {
-          toast.success('已清空所有記錄');
+          toast.success('已刪除');
           await fetchExpenses();
         } else {
-          toast.error('清空失敗');
+          toast.error('刪除失敗');
         }
       } catch (error) {
-        console.error('Error clearing expenses:', error);
-        toast.error('清空失敗');
+        console.error('Error deleting expense:', error);
+        toast.error('刪除失敗');
       }
     }
   };
@@ -453,17 +435,6 @@ export default function Money() {
           <div className="bg-white rounded-2xl shadow-sm p-6 border border-[#E8DDD8]">
             <div className="flex items-center justify-between mb-4">
               <h2 className="text-lg font-bold text-[#3D3D3D]" style={{ fontFamily: "'Zen Kaku Gothic Antique', sans-serif" }}>記錄</h2>
-              {expenses.length > 0 && (
-                <Button
-                  onClick={handleClearAll}
-                  variant="ghost"
-                  size="sm"
-                  className="text-red-500 hover:text-red-700 hover:bg-red-50"
-                >
-                  <Trash2 className="w-4 h-4 mr-1" />
-                  清除全部
-                </Button>
-              )}
             </div>
             {expenses.length === 0 ? (
               <p className="text-[#7A7A7A] text-center py-6">暫無記錄</p>
