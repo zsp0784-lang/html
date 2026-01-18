@@ -25,7 +25,7 @@ export const accommodations: Accommodation[] = [
     ],
     features: ["3星級公寓式飯店", "評分 8.5（評比非常好）", "距離倉敷美觀地區超近", "衛浴廁所分開"],
     amenities: ["自助入住系統", "簡易廚房", "沙發休息區", "聯網電視 (YouTube)", "免費 WiFi", "電梯", "洗衣機", "空氣清淨機"],
-    googleMapsUrl: "https://www.google.com/maps/search/?api=1&query=岡山縣倉敷市Chuo+2-3-21"
+    googleMapsUrl: "https://www.google.com/maps/search/グランドベース倉敷中央"
   },
   {
     id: "fav-hotel-takamatsu",
@@ -42,7 +42,7 @@ export const accommodations: Accommodation[] = [
     ],
     features: ["4星級公寓式飯店", "評分 8.7（評比很棒）", "房間寬敞設備齊全", "早餐評價還不錯"],
     amenities: ["簡易廚房", "房內洗衣機", "免費 WiFi", "浴室烘乾功能", "電梯", "空氣清淨機", "電子鎖入住", "私人停車場（需付費）"],
-    googleMapsUrl: "https://www.google.com/maps/search/?api=1&query=香川縣高松市塩上町2-4-20"
+    googleMapsUrl: "https://www.google.com/maps/search/Fav+Hotel+Takamatsu"
   },
   {
     id: "holiday-villa-ta-view",
@@ -58,6 +58,6 @@ export const accommodations: Accommodation[] = [
     ],
     features: ["整棟出租別墅", "瀨戶內海景觀", "70坪草坪庭院", "可烤肉（BBQ）"],
     amenities: ["免費停車位", "完整廚房設備", "洗衣機", "空調", "免費 WiFi", "沙發床", "浴缸", "非接觸式入住"],
-    googleMapsUrl: "https://www.google.com/maps/search/?api=1&query=香川縣小豆郡土庄町甲3402-2"
+    googleMapsUrl: "https://www.google.com/maps/search/Holiday+Villa+旅生"
   }
 ];
