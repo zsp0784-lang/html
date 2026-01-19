@@ -43,10 +43,14 @@ async function ensureDatabase(): Promise<void> {
     dbInitialized = true;  
   } catch (error) {  
     console.error('[MONEY] Database initialization failed:', error);  
-    // 不退出，讓服務繼續運行  
   }  
 }  
 // 在第一次 API 調用時初始化  
+router.use(async (req, res, next) => {  
+  await ensureDatabase();  
+  next();  
+});  
+
 router.use(async (req, res, next) => {  
   await ensureDatabase();  
   next();  
