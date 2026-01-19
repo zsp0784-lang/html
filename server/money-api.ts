@@ -34,10 +34,22 @@ async function initializeDatabase(): Promise<void> {
     throw error;  
   }  
 }  
-// 啟動時初始化數據庫  
-initializeDatabase().catch(err => {  
-  console.error('[MONEY] Database initialization failed:', err);  
-  process.exit(1);  
+// 延遲初始化數據庫（不強制在啟動時連接）  
+let dbInitialized = false;  
+async function ensureDatabase(): Promise<void> {  
+  if (dbInitialized) return;  
+  try {  
+    await initializeDatabase();  
+    dbInitialized = true;  
+  } catch (error) {  
+    console.error('[MONEY] Database initialization failed:', error);  
+    // 不退出，讓服務繼續運行  
+  }  
+}  
+// 在第一次 API 調用時初始化  
+router.use(async (req, res, next) => {  
+  await ensureDatabase();  
+  next();  
 });  
 // ============ 驗證記帳數據 ============  
 function validateExpense(expense: any): void {  
