@@ -50,11 +50,6 @@ router.use(async (req, res, next) => {
   await ensureDatabase();  
   next();  
 });  
-
-router.use(async (req, res, next) => {  
-  await ensureDatabase();  
-  next();  
-});  
 // ============ 驗證記帳數據 ============  
 function validateExpense(expense: any): void {  
   const required = ['id', 'amount', 'payer', 'paymentType', 'date'];  
