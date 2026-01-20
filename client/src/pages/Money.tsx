@@ -20,7 +20,7 @@ interface Settlement {
 }
 
 const MEMBERS = ['瑋', '博', '帆'];
-const API_URL = 'https://money-api.zeabur.app/api/money';
+const API_URL = '/api/money';  
 
 export default function Money() {
   const [expenses, setExpenses] = useState<Expense[]>([]);
