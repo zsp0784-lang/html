@@ -121,30 +121,31 @@ router.post('/expenses', (req: Request, res: Response) => {
   }  
 });  
 // ============ 更新記帳 ============  
-router.put('/expenses/:id', async (req: Request, res: Response) => {  
+router.put('/expenses/:id', (req: Request, res: Response) => {  
   try {  
     const { id } = req.params;  
     const { amount, payer, paymentType, date, description, splitWith } = req.body;  
     validateExpense({ id, amount, payer, paymentType, date, splitWith });  
+      
     // 檢查是否存在  
-    const existing = await pool.query(  
-      'SELECT * FROM expenses WHERE id = $1',  
-      [id]  
-    );  
-    if (existing.rows.length === 0) {  
+    const checkStmt = db.prepare('SELECT * FROM expenses WHERE id = ?');  
+    const existing = checkStmt.get(id);  
+    if (!existing) {  
       return res.status(404).json({  
         error: 'Failed to update expense',  
         message: 'Expense not found',  
         timestamp: new Date().toISOString()  
       });  
     }  
+      
     // 更新記錄  
-    await pool.query(  
-      `UPDATE expenses   
-       SET amount = $1, payer = $2, payment_type = $3, date = $4, description = $5, split_with = $6, updated_at = CURRENT_TIMESTAMP  
-       WHERE id = $7`,  
-      [amount, payer, paymentType, date, description, JSON.stringify(splitWith || []), id]  
+    const updateStmt = db.prepare(  
+      `UPDATE expenses  
+       SET amount = ?, payer = ?, payment_type = ?, date = ?, description = ?, split_with = ?, updated_at = CURRENT_TIMESTAMP  
+       WHERE id = ?`  
     );  
+    updateStmt.run(amount, payer, paymentType, date, description, JSON.stringify(splitWith || []), id);  
+      
     console.log(`[MONEY] Expense updated: ${id}`);  
     res.json({  
       success: true,  
