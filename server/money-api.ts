@@ -1,17 +1,14 @@
 import express, { Router, Request, Response } from 'express';  
-import { Pool } from 'pg';  
+import Database from 'better-sqlite3';  
+import path from 'path';  
+import { fileURLToPath } from 'url';  
+const __filename = fileURLToPath(import.meta.url);  
+const __dirname = path.dirname(__filename);  
 const router = Router();  
-// ============ PostgreSQL 連接池 ============  
-const pool = new Pool({    
-  host: process.env.POSTGRESQL_IRE_HOST || process.env.POSTGRESQL_HOST || 'localhost',    
-  port: parseInt(process.env.POSTGRESQL_PORT || '5432'),    
-  user: process.env.POSTGRESQL_USER || 'root',    
-  password: process.env.POSTGRESQL_PASSWORD || '',    
-  database: process.env.POSTGRESQL_DB || 'zeabur',    
-  max: 20,    
-  idleTimeoutMillis: 30000,    
-  connectionTimeoutMillis: 2000,    
-});    
+// ============ SQLite 數據庫 ============  
+const dbPath = process.env.DB_PATH || '/app/data/expenses.db';  
+const db = new Database(dbPath);  
+db.pragma('journal_mode = WAL');  
 // ============ 初始化數據庫表 ============  
 async function initializeDatabase(): Promise<void> {  
   try {  
