@@ -4,8 +4,8 @@
   "license": "MIT",
   "scripts": {
     "dev": "vite --host",
-    "build": "vite build && cp -r client/public/* dist/public/ && cp server/index.ts dist/ && cp server/money-api.ts dist/ && cp server/ferry-api.ts dist/ && cp server/scrape-ferry.ts dist/ && cp ferry_data.json dist/",
-    "start": "NODE_ENV=production tsx dist/index.ts",
+    "build": "vite build && cp -r client/public/* dist/public/ && cp ferry_data.json dist/",
+    "start": "NODE_ENV=production tsx /src/server/index.ts",
     "preview": "vite preview --host",
     "check": "tsc --noEmit",
     "format": "prettier --write ."
