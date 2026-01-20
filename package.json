@@ -5,8 +5,8 @@
   "license": "MIT",  
   "scripts": {  
     "dev": "vite --host",  
-    "build": "vite build && cp -r client/public/* dist/public/ && esbuild server/*.js --platform=node --packages=bundle --bundle --format=esm --outdir=dist && cp ferry_data.json dist/"      
-    "start": "NODE_ENV=production node dist/index.js",  
+    "build": "vite build && cp -r client/public/* dist/public/ && esbuild server/*.js --platform=node --packages=bundle --bundle --format=esm --outdir=dist && cp ferry_data.json dist/",  
+    "start": "NODE_ENV=production node dist/index.js",    
     "preview": "vite preview --host",  
     "check": "tsc --noEmit",  
     "format": "prettier --write ."  
