@@ -191,9 +191,10 @@ router.delete('/expenses/:id', (req: Request, res: Response) => {
   }  
 });  
 // ============ 清空所有記帳 ============  
-router.delete('/expenses', async (_req: Request, res: Response) => {  
+router.delete('/expenses', (_req: Request, res: Response) => {  
   try {  
-    await pool.query('DELETE FROM expenses');  
+    const deleteStmt = db.prepare('DELETE FROM expenses');  
+    deleteStmt.run();  
     console.log('[MONEY] All expenses cleared');  
     res.json({  
       success: true,  
