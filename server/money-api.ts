@@ -251,3 +251,4 @@ router.get('/health', (_req: Request, res: Response) => {
     });  
   }  
 });  
+export default router;  
