@@ -52,19 +52,18 @@ function validateExpense(expense: any): void {
   }  
 }  
 // ============ 讀取所有記帳 ============  
-router.get('/expenses', async (_req: Request, res: Response) => {  
+router.get('/expenses', (_req: Request, res: Response) => {  
   try {  
-    const result = await pool.query(  
-      'SELECT * FROM expenses ORDER BY date DESC'  
-    );  
-    const expenses = result.rows.map(row => ({  
+    const stmt = db.prepare('SELECT * FROM expenses ORDER BY date DESC');  
+    const rows = stmt.all();  
+    const expenses = rows.map((row: any) => ({  
       id: row.id,  
-      amount: parseFloat(row.amount),  
+      amount: row.amount,  
       payer: row.payer,  
       paymentType: row.payment_type,  
       date: row.date,  
       description: row.description,  
-      splitWith: row.split_with,  
+      splitWith: JSON.parse(row.split_with || '[]'),  
       createdAt: row.created_at,  
       updatedAt: row.updated_at  
     }));  
