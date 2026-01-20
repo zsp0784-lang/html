@@ -2,7 +2,7 @@ import express from 'express';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import ferryRouter from './ferry-api.js';
-import moneyRouter from './money-api.js';
+import moneyRouter, { initializeDb } from './money-api.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -63,7 +63,7 @@ app.get('*', (req, res) => {
 });
 
 // ============ 全局錯誤處理中間件 ============
-app.use((err: any, req: express.Request, res: express.Response, next: express.NextFunction) => {
+app.use((err, req, res, next) => {
   console.error('[ERROR]', err.message);
 
   const statusCode = err.statusCode || 500;
@@ -75,38 +75,48 @@ app.use((err: any, req: express.Request, res: express.Response, next: express.Ne
 });
 
 // ============ 啟動伺服器 ============
-const server = app.listen(PORT, () => {
-  console.log(`[INFO] ✅ Server running on port ${PORT}`);
-  console.log(`[INFO] 🚀 Environment: ${process.env.NODE_ENV || 'development'}`);
-  console.log(`[INFO] 📊 Health check: http://localhost:${PORT}/api/health`);
-});
+async function startServer() {
+  try {
+    // 初始化數據庫
+    await initializeDb();
+    
+    const server = app.listen(PORT, () => {
+      console.log(`[INFO] ✅ Server running on port ${PORT}`);
+      console.log(`[INFO] 🚀 Environment: ${process.env.NODE_ENV || 'development'}`);
+      console.log(`[INFO] 📊 Health check: http://localhost:${PORT}/api/health`);
+    });
 
-// ============ 優雅關閉 ============
-function gracefulShutdown(signal: string) {
-  console.log(`[INFO] ${signal} received, starting graceful shutdown...`);
+    // ============ 優雅關閉 ============
+    function gracefulShutdown(signal) {
+      console.log(`[INFO] ${signal} received, starting graceful shutdown...`);
 
-  server.close(() => {
-    console.log('[INFO] Server closed');
-    process.exit(0);
-  });
+      server.close(() => {
+        console.log('[INFO] Server closed');
+        process.exit(0);
+      });
 
-  // 等待現有請求完成（最多 30 秒）
-  const shutdownTimeout = setTimeout(() => {
-    console.error(`[ERROR] Forced shutdown after 30s timeout. ${activeRequests} active requests still pending`);
-    process.exit(1);
-  }, 30000);
+      // 等待現有請求完成（最多 30 秒）
+      const shutdownTimeout = setTimeout(() => {
+        console.error(`[ERROR] Forced shutdown after 30s timeout. ${activeRequests} active requests still pending`);
+        process.exit(1);
+      }, 30000);
 
-  // 如果所有請求完成，提前退出
-  const checkInterval = setInterval(() => {
-    if (activeRequests === 0) {
-      clearInterval(checkInterval);
-      clearTimeout(shutdownTimeout);
+      // 如果所有請求完成，提前退出
+      const checkInterval = setInterval(() => {
+        if (activeRequests === 0) {
+          clearInterval(checkInterval);
+          clearTimeout(shutdownTimeout);
+        }
+      }, 100);
     }
-  }, 100);
-}
 
-process.on('SIGTERM', () => gracefulShutdown('SIGTERM'));
-process.on('SIGINT', () => gracefulShutdown('SIGINT'));
+    process.on('SIGTERM', () => gracefulShutdown('SIGTERM'));
+    process.on('SIGINT', () => gracefulShutdown('SIGINT'));
+  } catch (err) {
+    console.error('[ERROR] Failed to start server:', err);
+    process.exit(1);
+  }
+}
 
 // ============ 未捕獲異常處理 ============
 process.on('uncaughtException', (error) => {
@@ -118,5 +128,7 @@ process.on('unhandledRejection', (reason, promise) => {
   console.error('[ERROR] Unhandled Rejection:', reason);
   process.exit(1);
 });
+
+startServer();
 
 export default app;
