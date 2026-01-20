@@ -163,7 +163,7 @@ router.post('/expenses', (req, res) => {
       VALUES (?, ?, ?, ?, ?, ?, ?)
     `);
     
-    insertStmt.bind([id, amount, payer, paymentType, date, description, JSON.stringify(splitWith || [])]);
+    insertStmt.bind([id, amount, payer, paymentType, date, description || null, JSON.stringify(splitWith || [])]);
     insertStmt.step();
     insertStmt.free();
     
@@ -213,7 +213,7 @@ router.put('/expenses/:id', (req, res) => {
       WHERE id = ?
     `);
     
-    updateStmt.bind([amount, payer, paymentType, date, description, JSON.stringify(splitWith || []), id]);
+    updateStmt.bind([amount, payer, paymentType, date, description || null, JSON.stringify(splitWith || []), id]);
     updateStmt.step();
     updateStmt.free();
     
