@@ -6,7 +6,7 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);  
 const router = Router();  
 // ============ SQLite 數據庫 ============  
-const dbPath = process.env.DB_PATH || '/app/data/expenses.db';  
+const dbPath = process.env.DB_PATH || '/data/expenses.db';  
 const db = new Database(dbPath);  
 db.pragma('journal_mode = WAL');  
 // ============ 初始化數據庫表 ============  
