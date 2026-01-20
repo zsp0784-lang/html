@@ -210,28 +210,34 @@ router.delete('/expenses', (_req: Request, res: Response) => {
   }  
 });  
 // ============ 獲取統計信息 ============  
-router.get('/stats', async (_req: Request, res: Response) => {  
+router.get('/stats', (_req: Request, res: Response) => {  
   try {  
-    const totalResult = await pool.query(  
+    const totalStmt = db.prepare(  
       'SELECT COUNT(*) as count, COALESCE(SUM(amount), 0) as total FROM expenses'  
     );  
-    const payerResult = await pool.query(  
-      `SELECT payer, COUNT(*) as count, SUM(amount) as total   
-       FROM expenses   
+    const totalResult = totalStmt.get() as any;  
+      
+    const payerStmt = db.prepare(  
+      `SELECT payer, COUNT(*) as count, SUM(amount) as total  
+       FROM expenses  
        GROUP BY payer`  
     );  
+    const payerResults = payerStmt.all() as any[];  
+      
     const stats = {  
-      totalExpenses: parseInt(totalResult.rows[0].count),  
-      totalAmount: parseFloat(totalResult.rows[0].total),  
+      totalExpenses: totalResult.count,  
+      totalAmount: totalResult.total,  
       lastUpdated: new Date().toISOString(),  
       byPayer: {} as { [key: string]: { count: number; total: number } }  
     };  
-    payerResult.rows.forEach(row => {  
+      
+    payerResults.forEach(row => {  
       stats.byPayer[row.payer] = {  
-        count: parseInt(row.count),  
-        total: parseFloat(row.total)  
+        count: row.count,  
+        total: row.total  
       };  
     });  
+      
     res.json(stats);  
   } catch (error) {  
     console.error('[MONEY] Error getting stats:', error);  
