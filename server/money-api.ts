@@ -162,20 +162,20 @@ router.put('/expenses/:id', (req: Request, res: Response) => {
   }  
 });  
 // ============ 刪除記帳 ============  
-router.delete('/expenses/:id', async (req: Request, res: Response) => {  
+router.delete('/expenses/:id', (req: Request, res: Response) => {  
   try {  
     const { id } = req.params;  
-    const result = await pool.query(  
-      'DELETE FROM expenses WHERE id = $1',  
-      [id]  
-    );  
-    if (result.rowCount === 0) {  
+    const deleteStmt = db.prepare('DELETE FROM expenses WHERE id = ?');  
+    const result = deleteStmt.run(id);  
+      
+    if (result.changes === 0) {  
       return res.status(404).json({  
         error: 'Failed to delete expense',  
         message: 'Expense not found',  
         timestamp: new Date().toISOString()  
       });  
     }  
+      
     console.log(`[MONEY] Expense deleted: ${id}`);  
     res.json({  
       success: true,  
