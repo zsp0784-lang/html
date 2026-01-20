@@ -10,19 +10,19 @@ const dbPath = process.env.DB_PATH || '/app/data/expenses.db';
 const db = new Database(dbPath);  
 db.pragma('journal_mode = WAL');  
 // ============ 初始化數據庫表 ============  
-async function initializeDatabase(): Promise<void> {  
+function initializeDatabase(): void {  
   try {  
-    await pool.query(`  
+    db.exec(`  
       CREATE TABLE IF NOT EXISTS expenses (  
-        id VARCHAR(255) PRIMARY KEY,  
-        amount NUMERIC NOT NULL,  
-        payer VARCHAR(255) NOT NULL,  
-        payment_type VARCHAR(50) NOT NULL,  
-        date TIMESTAMP NOT NULL,  
+        id TEXT PRIMARY KEY,  
+        amount REAL NOT NULL,  
+        payer TEXT NOT NULL,  
+        payment_type TEXT NOT NULL,  
+        date TEXT NOT NULL,  
         description TEXT,  
-        split_with JSONB DEFAULT '[]',  
-        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,  
-        updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP  
+        split_with TEXT DEFAULT '[]',  
+        created_at TEXT DEFAULT CURRENT_TIMESTAMP,  
+        updated_at TEXT DEFAULT CURRENT_TIMESTAMP  
       );  
     `);  
     console.log('[MONEY] Database table initialized');  
@@ -31,22 +31,8 @@ async function initializeDatabase(): Promise<void> {
     throw error;  
   }  
 }  
-// 延遲初始化數據庫（不強制在啟動時連接）  
-let dbInitialized = false;  
-async function ensureDatabase(): Promise<void> {  
-  if (dbInitialized) return;  
-  try {  
-    await initializeDatabase();  
-    dbInitialized = true;  
-  } catch (error) {  
-    console.error('[MONEY] Database initialization failed:', error);  
-  }  
-}  
-// 在第一次 API 調用時初始化  
-router.use(async (req, res, next) => {  
-  await ensureDatabase();  
-  next();  
-});  
+// 初始化數據庫  
+initializeDatabase();  
 // ============ 驗證記帳數據 ============  
 function validateExpense(expense: any): void {  
   const required = ['id', 'amount', 'payer', 'paymentType', 'date'];  
