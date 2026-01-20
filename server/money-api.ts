@@ -82,28 +82,29 @@ router.get('/expenses', (_req: Request, res: Response) => {
   }  
 });  
 // ============ 新增記帳 ============  
-router.post('/expenses', async (req: Request, res: Response) => {  
+router.post('/expenses', (req: Request, res: Response) => {  
   try {  
     validateExpense(req.body);  
     const { id, amount, payer, paymentType, date, description, splitWith } = req.body;  
+      
     // 檢查是否已存在  
-    const existing = await pool.query(  
-      'SELECT id FROM expenses WHERE id = $1',  
-      [id]  
-    );  
-    if (existing.rows.length > 0) {  
+    const checkStmt = db.prepare('SELECT id FROM expenses WHERE id = ?');  
+    const existing = checkStmt.get(id);  
+    if (existing) {  
       return res.status(400).json({  
         error: 'Failed to add expense',  
         message: 'Expense with this ID already exists',  
         timestamp: new Date().toISOString()  
       });  
     }  
+      
     // 插入新記錄  
-    await pool.query(  
+    const insertStmt = db.prepare(  
       `INSERT INTO expenses (id, amount, payer, payment_type, date, description, split_with)  
-       VALUES ($1, $2, $3, $4, $5, $6, $7)`,  
-      [id, amount, payer, paymentType, date, description, JSON.stringify(splitWith || [])]  
+       VALUES (?, ?, ?, ?, ?, ?, ?)`  
     );  
+    insertStmt.run(id, amount, payer, paymentType, date, description, JSON.stringify(splitWith || []));  
+      
     console.log(`[MONEY] Expense added: ${id}`);  
     res.json({  
       success: true,  
