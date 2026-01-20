@@ -249,14 +249,15 @@ router.get('/stats', (_req: Request, res: Response) => {
   }  
 });  
 // ============ 健康檢查 ============  
-router.get('/health', async (_req: Request, res: Response) => {  
+router.get('/health', (_req: Request, res: Response) => {  
   try {  
-    const result = await pool.query('SELECT NOW()');  
+    const stmt = db.prepare('SELECT CURRENT_TIMESTAMP as now');  
+    const result = stmt.get() as any;  
       
     res.json({  
       status: 'ok',  
       database: 'connected',  
-      timestamp: result.rows[0].now,  
+      timestamp: result.now,  
       uptime: process.uptime()  
     });  
   } catch (error) {  
@@ -269,4 +270,3 @@ router.get('/health', async (_req: Request, res: Response) => {
     });  
   }  
 });  
-export default router;  
