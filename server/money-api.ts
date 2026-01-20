@@ -190,25 +190,6 @@ router.delete('/expenses/:id', (req: Request, res: Response) => {
     });  
   }  
 });  
-// ============ 清空所有記帳 ============  
-router.delete('/expenses', (_req: Request, res: Response) => {  
-  try {  
-    const deleteStmt = db.prepare('DELETE FROM expenses');  
-    deleteStmt.run();  
-    console.log('[MONEY] All expenses cleared');  
-    res.json({  
-      success: true,  
-      timestamp: new Date().toISOString()  
-    });  
-  } catch (error) {  
-    console.error('[MONEY] Error clearing expenses:', error);  
-    res.status(500).json({  
-      error: 'Failed to clear expenses',  
-      message: process.env.NODE_ENV === 'development' ? (error instanceof Error ? error.message : String(error)) : undefined,  
-      timestamp: new Date().toISOString()  
-    });  
-  }  
-});  
 // ============ 獲取統計信息 ============  
 router.get('/stats', (_req: Request, res: Response) => {  
   try {  
