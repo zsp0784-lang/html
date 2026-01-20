@@ -2,16 +2,16 @@ import express, { Router, Request, Response } from 'express';
 import { Pool } from 'pg';  
 const router = Router();  
 // ============ PostgreSQL 連接池 ============  
-const pool = new Pool({  
-  host: process.env.POSTGRESQL_HOST || 'localhost',  
-  port: parseInt(process.env.POSTGRESQL_PORT || '5432'),  
-  user: process.env.POSTGRESQL_USER || 'root',  
-  password: process.env.POSTGRESQL_PASSWORD || '',  
-  database: process.env.POSTGRESQL_DB || 'zeabur',  
-  max: 20,  
-  idleTimeoutMillis: 30000,  
-  connectionTimeoutMillis: 2000,  
-});  
+const pool = new Pool({    
+  host: process.env.POSTGRESQL_IRE_HOST || process.env.POSTGRESQL_HOST || 'localhost',    
+  port: parseInt(process.env.POSTGRESQL_PORT || '5432'),    
+  user: process.env.POSTGRESQL_USER || 'root',    
+  password: process.env.POSTGRESQL_PASSWORD || '',    
+  database: process.env.POSTGRESQL_DB || 'zeabur',    
+  max: 20,    
+  idleTimeoutMillis: 30000,    
+  connectionTimeoutMillis: 2000,    
+});    
 // ============ 初始化數據庫表 ============  
 async function initializeDatabase(): Promise<void> {  
   try {  
